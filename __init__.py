@@ -16,7 +16,6 @@
 # along with Mycroft Core.  If not, see <http://www.gnu.org/licenses/>.
 
 from adapt.intent import IntentBuilder
-import time
 
 from mycroft.skills.core import MycroftSkill
 from mycroft.util.log import getLogger
@@ -31,23 +30,24 @@ class RobotGoSkill(MycroftSkill):
         super(RobotGoSkill, self).__init__(name="RobotGoSkill")
 
     def initialize(self):
-        robot_go_intent = IntentBuilder("RobotGoIntent").require("RobotGoKeyword").require("Word1").optionally("Word0").build()
+        robot_go_intent = IntentBuilder("RobotGoIntent").require("RobotGoKeyword").require("Word").build()
         self.register_intent(robot_go_intent, self.handle_robot_go_intent)
 
+        robot_back_intent = IntentBuilder("RobotBackIntent").require("RobotBackKeyword").require("Word").build()
+        self.register_intent(robot_back_intent, self.handle_robot_back_intent)
 
 
     def handle_robot_go_intent(self, message):
-        toplaceword = message.data.get("Word1")
+        toplaceword = message.data.get("Word")
         
-        fromplaceword = message.data.get("Word0")
-        current_time = self.get_spoken_time(fromplaceword)
-
-        self.speak_dialog("welcome")
+        self.speak_dialog("move")
         self.speak(toplaceword)
 
-        if current_time:
-            self.speak(fromplaceword)
-
+    def handle_robot_back_intent(self, message):
+        fromplaceword = message.data.get("Word")
+        
+        self.speak_dialog("back")
+        self.speak(fromplaceword)
 
 
 
