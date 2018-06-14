@@ -30,9 +30,9 @@ class HelloWorldSkill(MycroftSkill):
         super(HelloWorldSkill, self).__init__(name="HelloWorldSkill")
 
     def initialize(self):
-        thank_you_intent = IntentBuilder("ThankYouIntent"). \
-            require("ThankYouKeyword").build()
-        self.register_intent(thank_you_intent, self.handle_thank_you_intent)
+        robot_go_intent = IntentBuilder("RobotGoIntent"). \
+            require("RobotGoKeyword").build()
+        self.register_intent(robot_go_intent, self.handle_robot_go_intent)
 
         how_are_you_intent = IntentBuilder("HowAreYouIntent"). \
             require("HowAreYouKeyword").build()
@@ -44,8 +44,8 @@ class HelloWorldSkill(MycroftSkill):
         self.register_intent(hello_world_intent,
                              self.handle_hello_world_intent)
 
-    def handle_thank_you_intent(self, message):
-        self.speak_dialog("welcome")
+    def handle_robot_go_intent(self, message):
+        self.speak_dialog("robottest")
 
     def handle_how_are_you_intent(self, message):
         self.speak_dialog("how.are.you")

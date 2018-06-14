@@ -1,7 +1,7 @@
 {
-  "utterance": "Thanks",
-  "intent_type": "ThankYouIntent",
+  "utterance": "robot go",
+  "intent_type": "RobotGoIntent",
   "intent": {
-    "ThankYouKeyword": "thanks"
+    "RobotGoKeyword": "robot go"
   }
 }
