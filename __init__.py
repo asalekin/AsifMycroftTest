@@ -16,6 +16,7 @@
 # along with Mycroft Core.  If not, see <http://www.gnu.org/licenses/>.
 
 from adapt.intent import IntentBuilder
+import time
 
 from mycroft.skills.core import MycroftSkill
 from mycroft.util.log import getLogger
@@ -39,11 +40,12 @@ class RobotGoSkill(MycroftSkill):
         toplaceword = message.data.get("Word1")
         
         fromplaceword = message.data.get("Word0")
-        From_location = self.get_spoken_time(fromplaceword)
+        current_time = self.get_spoken_time(fromplaceword)
 
         self.speak_dialog("welcome")
         self.speak(toplaceword)
-        if not current_time:
+
+        if current_time:
             self.speak(fromplaceword)
 
 

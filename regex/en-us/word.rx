@@ -1,2 +1,0 @@
-(to|for) place (?P<Word1>\w+)
-from place (?P<Word0>\w+)
