@@ -25,37 +25,28 @@ __author__ = 'asalekin'
 LOGGER = getLogger(__name__)
 
 
-class HelloWorldSkill(MycroftSkill):
+class RobotMoveSkill(MycroftSkill):
     def __init__(self):
-        super(HelloWorldSkill, self).__init__(name="HelloWorldSkill")
+        super(RobotMoveSkill, self).__init__(name="RobotMoveSkill")
+        self.file_opened = False
 
-    def initialize(self):
-        robot_go_intent = IntentBuilder("RobotGoIntent"). \
-            require("RobotGoKeyword").build()
-        self.register_intent(robot_go_intent, self.handle_robot_go_intent)
 
-        how_are_you_intent = IntentBuilder("HowAreYouIntent"). \
-            require("HowAreYouKeyword").build()
-        self.register_intent(how_are_you_intent,
-                             self.handle_how_are_you_intent)
+    @intent_handler(IntentBuilder("RobotGoIntent").require('RobotGoKeyword').require("Placenamename"))
+    def handle_robot_go(self, message):
 
-        hello_world_intent = IntentBuilder("HelloWorldIntent"). \
-            require("HelloWorldKeyword").build()
-        self.register_intent(hello_world_intent,
-                             self.handle_hello_world_intent)
-
-    def handle_robot_go_intent(self, message):
+	place_name = message.data.get("Placenamename")
         self.speak_dialog("robottest")
 
-    def handle_how_are_you_intent(self, message):
-        self.speak_dialog("how.are.you")
 
-    def handle_hello_world_intent(self, message):
-        self.speak_dialog("hello.world")
+    @intent_handler(IntentBuilder("RobotBackIntent").require('RobotbackKeyword').require("Placenamename"))
+    def handle_robot_back(self, message):
+
+	place_name = message.data.get("Placenamename")
+        self.speak_dialog("robottestback")
 
     def stop(self):
         pass
 
 
 def create_skill():
-    return HelloWorldSkill()
+    return RobotMoveSkill()
