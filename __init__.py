@@ -30,15 +30,22 @@ class RobotGoSkill(MycroftSkill):
         super(RobotGoSkill, self).__init__(name="RobotGoSkill")
 
     def initialize(self):
-        robot_go_intent = IntentBuilder("RobotGoIntent").require("RobotGoKeyword").require("Word").build()
+        robot_go_intent = IntentBuilder("RobotGoIntent").require("RobotGoKeyword").require("Word1").optionally("Word0").build()
         self.register_intent(robot_go_intent, self.handle_robot_go_intent)
 
 
 
     def handle_robot_go_intent(self, message):
-        placeword = message.data.get("Word")
-        self.speak(placeword)
+        toplaceword = message.data.get("Word1")
+        
+        fromplaceword = message.data.get("Word0")
+        From_location = self.get_spoken_time(fromplaceword)
+
         self.speak_dialog("welcome")
+        self.speak(toplaceword)
+        if not current_time:
+            self.speak(fromplaceword)
+
 
 
 

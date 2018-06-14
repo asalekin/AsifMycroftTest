@@ -1,2 +1,4 @@
 robot go
 robot move
+robot depart
+robot leave
