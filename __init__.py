@@ -31,14 +31,14 @@ class RobotMoveSkill(MycroftSkill):
         self.file_opened = False
 
 
-    @intent_handler(IntentBuilder("RobotGoIntent").require('RobotGoKeyword').require("Placenamename"))
+    @intent_handler(IntentBuilder("RobotGoIntent").require('Robot').require('RobotGoKeyword').require("Placenamename"))
     def handle_robot_go(self, message):
 
 	place_name = message.data.get("Placenamename")
         self.speak_dialog("robottest")
 
 
-    @intent_handler(IntentBuilder("RobotBackIntent").require('RobotbackKeyword').require("Placenamename"))
+    @intent_handler(IntentBuilder("RobotBackIntent").require('Robot').require('RobotbackKeyword').require("Placenamename"))
     def handle_robot_back(self, message):
 
 	place_name = message.data.get("Placenamename")
