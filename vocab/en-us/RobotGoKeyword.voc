@@ -1,2 +1,4 @@
-go to
-forward to
+robot go
+robot move
+robot go forward
+robot move forward

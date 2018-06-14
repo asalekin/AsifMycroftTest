@@ -31,18 +31,18 @@ class RobotMoveSkill(MycroftSkill):
         self.file_opened = False
 
 
-    @intent_handler(IntentBuilder("RobotGoIntent").require('Robot').require('RobotGoKeyword').require("Placenamename"))
+    @intent_handler(IntentBuilder("RobotGoIntent").require('RobotGoKeyword').require("Position"))
     def handle_robot_go(self, message):
 
-	place_name = message.data.get("Placenamename")
-        self.speak_dialog("robottest")
+	place_name = message.data.get("Position")
+        self.emitter.once("recognizer_loop:audio_output_start", self.enclosure.mouth_text(place_name))
+        
+        self.enclosure.deactivate_mouth_events()
+	self.speak(place_name)
 
+        self.enclosure.activate_mouth_events()
+        self.enclosure.mouth_reset()
 
-    @intent_handler(IntentBuilder("RobotBackIntent").require('Robot').require('RobotbackKeyword').require("Placenamename"))
-    def handle_robot_back(self, message):
-
-	place_name = message.data.get("Placenamename")
-        self.speak_dialog("robottestback")
 
     def stop(self):
         pass

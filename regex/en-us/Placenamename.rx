@@ -1,3 +1,1 @@
-to (?P<Placenamename>.*)
-place (?P<Placenamename>.*)
-from (?P<Placenamename>.*)
+(go to|move to|move forwward|move to) (?P<Position>.*)
