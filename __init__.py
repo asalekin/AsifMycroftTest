@@ -35,13 +35,7 @@ class RobotMoveSkill(MycroftSkill):
     def handle_robot_go(self, message):
 
 	place_name = message.data.get("Position")
-        self.emitter.once("recognizer_loop:audio_output_start", self.enclosure.mouth_text(place_name))
-        
-        self.enclosure.deactivate_mouth_events()
 	self.speak(place_name)
-
-        self.enclosure.activate_mouth_events()
-        self.enclosure.mouth_reset()
 
 
     def stop(self):

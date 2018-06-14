@@ -1,0 +1,7 @@
+{
+  "utterance": "robot go",
+  "intent_type": "RobotGoIntent",
+  "intent": {
+    "RobotGoKeyword": "robot go"
+  }
+}
