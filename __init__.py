@@ -25,20 +25,20 @@ __author__ = 'asalekin'
 LOGGER = getLogger(__name__)
 
 
-class RobotMoveSkill(MycroftSkill):
+class RobotGoSkill(MycroftSkill):
     def __init__(self):
-        super(RobotMoveSkill, self).__init__(name="RobotMoveSkill")
-        self.file_opened = False
+        super(RobotGoSkill, self).__init__(name="RobotGoSkill")
 
     def initialize(self):
-        intent_robot_go = IntentBuilder("RobotGoIntent").require("RobotGoKeyword").build()  #.require("Position")
-	self.register_intent(intent_robot_go, self.handle_intent_robot_go)
+        robot_go_intent = IntentBuilder("RobotGoIntent"). \
+            require("RobotGoKeyword").build()
+        self.register_intent(robot_go_intent, self.handle_robot_go_intent)
 
-    def handle_intent_robot_go(self, message):
 
-	#place_name = message.data.get("Position")
-	#self.speak(place_name)
-        self.speak_dialog("robottest")
+
+    def handle_robot_go_intent(self, message):
+        self.speak_dialog("welcome")
+
 
 
     def stop(self):
@@ -46,4 +46,4 @@ class RobotMoveSkill(MycroftSkill):
 
 
 def create_skill():
-    return RobotMoveSkill()
+    return RobotGoSkill()
