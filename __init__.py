@@ -30,9 +30,11 @@ class RobotMoveSkill(MycroftSkill):
         super(RobotMoveSkill, self).__init__(name="RobotMoveSkill")
         self.file_opened = False
 
+    def initialize(self):
+        intent_robot_go = IntentBuilder("RobotGoIntent").require("RobotGoKeyword").require("Position").build()
+	self.register_intent(intent_robot_go, self.handle_intent_robot_go)
 
-    @intent_handler(IntentBuilder("RobotGoIntent").require('RobotGoKeyword').require("Position"))
-    def handle_robot_go(self, message):
+    def handle_intent_robot_go(self, message):
 
 	place_name = message.data.get("Position")
 	self.speak(place_name)
