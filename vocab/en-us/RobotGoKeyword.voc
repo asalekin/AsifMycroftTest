@@ -1,5 +1,5 @@
-robot go
-robot move
+robot go to
+robot move to
 move robot to
 take robot to
 robot depart for
