@@ -1,0 +1,3 @@
+open file (with name|){filename}
+open presentation (from|using|) {filename}
+start presentation (from|using|) {filename}

@@ -1,49 +1,43 @@
-# Copyright 2016 Mycroft AI, Inc.
-#
-# This file is part of Mycroft Core.
-#
-# Mycroft Core is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# Mycroft Core is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with Mycroft Core.  If not, see <http://www.gnu.org/licenses/>.
-
-from adapt.intent import IntentBuilder
-
-from mycroft.skills.core import MycroftSkill
+import requests
+from mycroft import MycroftSkill, intent_file_handler
 from mycroft.util.log import getLogger
 
-__author__ = 'asalekin'
 
-LOGGER = getLogger(__name__)
-
-
-class RobotGoSkill(MycroftSkill):
+class PptControllerUsingPadatiousSkill(MycroftSkill):
     def __init__(self):
-        super(RobotGoSkill, self).__init__(name="RobotGoSkill")
+        MycroftSkill.__init__(self)
+        self.file_opened = False
 
-    def initialize(self):
-        robot_go_intent = IntentBuilder("RobotGoIntent").require("RobotGoKeyword").require("Word").build()
-        self.register_intent(robot_go_intent, self.handle_robot_go_intent)
+    @intent_file_handler('ppt.controller.intent')
+    def handle_ppt_controller_using_padatious(self, message):
+        self.speak_dialog('ppt.controller.using.padatious')
 
-    def handle_robot_go_intent(self, message):
-        toplaceword = message.data.get("Word")
-        print(toplaceword)
-        
-        #self.speak_dialog("move")
-        #self.speak(toplaceword)
+    @intent_file_handler('ppt.open.intent')
+    def handle_ppt_open(self, message):
+        filename = message.data.get("filename")
+        if filename is None:
+            self.speak_dialog('ppt.specifyfile')
+        else:	
+            self.file_opened = True;
+            resp = {'filename' : filename}
+            self.speak_dialog('ppt.open', data=resp)
 
 
-    def stop(self):
-        pass
+    @intent_file_handler('ppt.next.intent')
+    def handle_next_slide(self, message):
+    if self.file_opened: 
+        self.speak_dialog('ppt.next')
 
+
+    @intent_file_handler('ppt.prev.intent')
+    def handle_prev_slide(self, message):
+        self.speak_dialog('ppt.prev')
+
+
+    @intent_file_handler('ppt.close.intent')
+    def handle_ppt_close(self, message):
+        self.speak_dialog('ppt.close')
 
 def create_skill():
-    return RobotGoSkill()
+    return PptControllerUsingPadatiousSkill()
+
