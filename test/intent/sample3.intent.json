@@ -1,7 +1,0 @@
-{
-  "utterance": "robot depart for place one",
-  "intent_type": "RobotGoIntent",
-  "intent": {
-    "RobotGoKeyword": "robot depart for"
-  }
-}
