@@ -37,8 +37,8 @@ class RobotGoSkill(MycroftSkill):
         toplaceword = message.data.get("Word")
         print(toplaceword)
         
-        self.speak_dialog("move")
-        self.speak(toplaceword)
+        #self.speak_dialog("move")
+        #self.speak(toplaceword)
 
 
     def stop(self):
