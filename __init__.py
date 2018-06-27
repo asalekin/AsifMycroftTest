@@ -31,19 +31,10 @@ class JokingSkill(MycroftSkill):
     def speak_joke(self, lang, category):
         self.speak(pyjokes.get_joke(language=lang, category=category))
 
-    @intent_file_handler('ppt.controller.intent')
-    def handle_ppt_controller_using_padatious(self, message):
-        self.speak_dialog('ppt.controller.using.padatious')
-
-    @intent_file_handler('ppt.open.intent')
+    @intent_file_handler('go.robot.intent')
     def handle_ppt_open(self, message):
-        filename = message.data.get("filename")
-        if filename is None:
-            self.speak_dialog('ppt.specifyfile')
-        else:	
-            self.file_opened = True;
-            resp = {'filename' : filename}
-            self.speak_dialog('ppt.open', data=resp)
+        filename = message.data.get('filename')
+        self.speak_dialog(filename)
 
 
     @intent_handler(IntentBuilder("JokingIntent").require("Joke"))
