@@ -1,43 +1,59 @@
-import requests
-from mycroft import MycroftSkill, intent_file_handler
-from mycroft.util.log import getLogger
+# Copyright 2017, Mycroft AI Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+from os.path import dirname, join
+
+import pyjokes
+
+from adapt.intent import IntentBuilder
+from mycroft.skills.core import MycroftSkill, intent_handler
+from random import choice
 
 
-class PptControllerUsingPadatiousSkill(MycroftSkill):
+joke_types = ['chuck', 'neutral']
+
+
+class JokingSkill(MycroftSkill):
     def __init__(self):
-        MycroftSkill.__init__(self)
-        self.file_opened = False
+        super(JokingSkill, self).__init__(name="JokingSkill")
 
-    @intent_file_handler('ppt.controller.intent')
-    def handle_ppt_controller_using_padatious(self, message):
-        self.speak_dialog('ppt.controller.using.padatious')
+    def speak_joke(self, lang, category):
+        self.speak(pyjokes.get_joke(language=lang, category=category))
 
-    @intent_file_handler('ppt.open.intent')
-    def handle_ppt_open(self, message):
-        filename = message.data.get("filename")
-        if filename is None:
-            self.speak_dialog('ppt.specifyfile')
-        else:	
-            self.file_opened = True;
-            resp = {'filename' : filename}
-            self.speak_dialog('ppt.open', data=resp)
+    @intent_handler(IntentBuilder("JokingIntent").require("Joke"))
+    def handle_general_joke(self, message):
+        selected = choice(joke_types)
+        self.speak_joke(self.lang[:-3], selected)
 
+    @intent_handler(IntentBuilder("ChuckJokeIntent").require("Joke")
+                    .require("Chuck"))
+    def handle_chuck_joke(self, message):
+        self.speak_joke(self.lang[:-3], 'chuck')
 
-    @intent_file_handler('ppt.next.intent')
-    def handle_next_slide(self, message):
-    if self.file_opened: 
-        self.speak_dialog('ppt.next')
+    @intent_handler(IntentBuilder("NeutralJokeIntent").require("Joke")
+                    .require("Neutral"))
+    def handle_neutral_joke(self, message):
+        self.speak_joke(self.lang[:-3], 'neutral')
 
+    @intent_handler(IntentBuilder("AdultJokeIntent").require("Joke")
+                    .require("Adult"))
+    def handle_adult_joke(self, message):
+        self.speak_joke(self.lang[:-3], 'adult')
 
-    @intent_file_handler('ppt.prev.intent')
-    def handle_prev_slide(self, message):
-        self.speak_dialog('ppt.prev')
+    def stop(self):
+        pass
 
-
-    @intent_file_handler('ppt.close.intent')
-    def handle_ppt_close(self, message):
-        self.speak_dialog('ppt.close')
 
 def create_skill():
-    return PptControllerUsingPadatiousSkill()
-
+    return JokingSkill()
