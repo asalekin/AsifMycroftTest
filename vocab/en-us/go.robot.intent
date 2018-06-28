@@ -1,7 +1,0 @@
-robot go to {filename}
-robot move to {filename}
-robot go forward to {filename}
-move robot to {filename}
-bring the robot to {filename}
-place the robot to {filename}
-take the robot to {filename}
