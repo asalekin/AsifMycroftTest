@@ -31,31 +31,10 @@ class JokingSkill(MycroftSkill):
     def speak_joke(self, lang, category):
         self.speak(pyjokes.get_joke(language=lang, category=category))
 
-    @intent_file_handler('go.robot')
+    @intent_file_handler('go.robot.intent')
     def handle_ppt_open(self, message):
         filename = message.data.get('filename')
         self.speak_dialog(filename)
-
-
-    @intent_handler(IntentBuilder("JokingIntent").require("Joke"))
-    def handle_general_joke(self, message):
-        selected = choice(joke_types)
-        self.speak_joke(self.lang[:-3], selected)
-
-    @intent_handler(IntentBuilder("ChuckJokeIntent").require("Joke")
-                    .require("Chuck"))
-    def handle_chuck_joke(self, message):
-        self.speak_joke(self.lang[:-3], 'chuck')
-
-    @intent_handler(IntentBuilder("NeutralJokeIntent").require("Joke")
-                    .require("Neutral"))
-    def handle_neutral_joke(self, message):
-        self.speak_joke(self.lang[:-3], 'neutral')
-
-    @intent_handler(IntentBuilder("AdultJokeIntent").require("Joke")
-                    .require("Adult"))
-    def handle_adult_joke(self, message):
-        self.speak_joke(self.lang[:-3], 'adult')
 
     def stop(self):
         pass
