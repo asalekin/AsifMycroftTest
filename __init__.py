@@ -1,44 +1,47 @@
-# Copyright 2017, Mycroft AI Inc.
+# Copyright 2016 Mycroft AI, Inc.
 #
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
+# This file is part of Mycroft Core.
 #
-#    http://www.apache.org/licenses/LICENSE-2.0
+# Mycroft Core is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
 #
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-from os.path import dirname, join
-
-import pyjokes
+# Mycroft Core is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Mycroft Core.  If not, see <http://www.gnu.org/licenses/>.
 
 from adapt.intent import IntentBuilder
-from mycroft.skills.core import MycroftSkill, intent_handler
-from random import choice
+
+from mycroft.skills.core import MycroftSkill
+from mycroft.util.log import getLogger
+
+__author__ = 'asalekin'
+
+LOGGER = getLogger(__name__)
 
 
-joke_types = ['chuck', 'neutral']
-
-
-class JokingSkill(MycroftSkill):
+class RobotGoSkill(MycroftSkill):
     def __init__(self):
-        super(JokingSkill, self).__init__(name="JokingSkill")
+        super(RobotGoSkill, self).__init__(name="RobotGoSkill")
 
-    def speak_joke(self, lang, category):
-        self.speak(pyjokes.get_joke(language=lang, category=category))
+    def initialize(self):
+        self.register_intent_file('go.robot.intent', self.handle_go_robot)
 
-    @intent_file_handler('go.robot.intent')
-    def handle_ppt_open(self, message):
+
+    def handle_go_robot(self, message):
         filename = message.data.get('filename')
         self.speak_dialog(filename)
+
+
 
     def stop(self):
         pass
 
 
 def create_skill():
-    return JokingSkill()
+    return RobotGoSkill()
