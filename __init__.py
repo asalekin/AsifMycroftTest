@@ -31,7 +31,7 @@ class JokingSkill(MycroftSkill):
     def speak_joke(self, lang, category):
         self.speak(pyjokes.get_joke(language=lang, category=category))
 
-    @intent_file_handler('go.robot.intent')
+    @intent_file_handler('go.robot')
     def handle_ppt_open(self, message):
         filename = message.data.get('filename')
         self.speak_dialog(filename)
