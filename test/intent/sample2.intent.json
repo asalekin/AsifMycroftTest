@@ -1,7 +1,7 @@
 {
-  "utterance": "make me laugh",
-  "intent_type": "JokingIntent",
+  "utterance": "robot move to place two",
+  "intent_type": "RobotGoIntent",
   "intent": {
-    "Joke": "make me laugh"
+    "RobotGoKeyword": "robot move to"
   }
 }

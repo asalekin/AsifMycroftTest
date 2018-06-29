@@ -1,9 +1,7 @@
 {
-  "utterance": "tell me a chuck norris joke",
-  "intent_type": "ChuckJokeIntent",
+  "utterance": "robot depart for place one",
+  "intent_type": "RobotGoIntent",
   "intent": {
-    "Joke": "joke",
-    "Chuck": "chuck norris"
-  },
-  "expected_response": ".*([Cc]huck|[nN]orris).*"
+    "RobotGoKeyword": "robot depart for"
+  }
 }
