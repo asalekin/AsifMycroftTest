@@ -31,18 +31,17 @@ class RobotGoSkill(MycroftSkill):
 
     def initialize(self):
 
-        self.engine = IntentDeterminationEngine()
         robot_keyword=["robot", "drone"]
         for rk in robot_keyword:
-            engine.register_entity(rk, "RobotKeyword")
+            self.register_entity(rk, "RobotKeyword")
 
         robot_move=["go", "move", "monitor", "view", "surveil"]
         for rm in robot_move:
-            engine.register_entity(rm, "RobotMove")
+            self.register_entity(rm, "RobotMove")
 
         robot_location=["place one", "place two", "place three", "area one", "area two", "area three", "point one", "point two", "point three", "spot one", "spot two", "spot three", "zone one", "zone two", "zone three"]
         for rl in robot_location:
-            engine.register_entity(rl, "RobotLocation")
+            self.register_entity(rl, "RobotLocation")
 
 
         robot_go_intent = IntentBuilder("RobotGoIntent").require("RobotKeyword").optionally("RobotMove").require("RobotLocation").build()
@@ -54,7 +53,7 @@ class RobotGoSkill(MycroftSkill):
         #toplaceword = message.data.get("Word")
         
         self.speak_dialog("move")
-        self.speak(toplaceword)
+        #self.speak(toplaceword)
 
 
     def stop(self):
