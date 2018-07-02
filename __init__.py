@@ -33,8 +33,8 @@ class RobotGoSkill(MycroftSkill):
         robot_go_intent = IntentBuilder("RobotGoIntent").require("RobotGoKeyword").require("Word").build()
         self.register_intent(robot_go_intent, self.handle_robot_go_intent)
 
-        robot_back_intent = IntentBuilder("RobotBackIntent").require("RobotBackKeyword").require("Word").build()
-        self.register_intent(robot_back_intent, self.handle_robot_back_intent)
+        robot_land_intent = IntentBuilder("RobotLandIntent").require("RobotLand").optionally("Word").build()
+        self.register_intent(robot_land_intent, self.handle_robot_land_intent)
 
 
     def handle_robot_go_intent(self, message):
@@ -50,11 +50,13 @@ class RobotGoSkill(MycroftSkill):
         else:
             self.speak(allwords)      
 
-    def handle_robot_back_intent(self, message):
-        fromplaceword = message.data.get("Word")
-        
-        self.speak_dialog("back")
-        self.speak(fromplaceword)
+    def handle_robot_land_intent(self, message):
+        placeword = message.data.get("Word")
+        allwords=message.data.get('utterance')
+
+        self.speak(allwords)
+        self.speak_dialog("land")
+        self.speak(placeword)
 
 
 
