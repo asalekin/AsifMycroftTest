@@ -45,6 +45,10 @@ class RobotGoSkill(MycroftSkill):
         self.speak_dialog("move")
         self.speak(toplaceword)
         self.speak(allwords)
+        if "place" in allwords:
+            self.speak_dialog("place")
+        else:
+            self.speak_dialog("no place")        
 
     def handle_robot_back_intent(self, message):
         fromplaceword = message.data.get("Word")
