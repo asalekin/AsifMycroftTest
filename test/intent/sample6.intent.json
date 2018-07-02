@@ -1,7 +1,0 @@
-{
-  "utterance": "robot go back to place one",
-  "intent_type": "RobotBackIntent",
-  "intent": {
-    "RobotBackKeyword": "robot go back"
-  }
-}
