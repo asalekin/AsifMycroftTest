@@ -55,10 +55,12 @@ class RobotGoSkill(MycroftSkill):
         allwords=message.data.get('utterance')
 
         self.speak_dialog("land")
-        if !placeword.isEmpty():
-            self.speak(placeword)
-        else:
+
+        if placeword.isEmpty():
             self.speak(allwords)
+        else:
+            self.speak(placeword)
+            
 
 
     def stop(self):
