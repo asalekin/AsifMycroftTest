@@ -16,7 +16,7 @@
 # along with Mycroft Core.  If not, see <http://www.gnu.org/licenses/>.
 
 from adapt.intent import IntentBuilder
-
+from adapt.engine import IntentDeterminationEngine
 from mycroft.skills.core import MycroftSkill
 from mycroft.util.log import getLogger
 
@@ -30,12 +30,28 @@ class RobotGoSkill(MycroftSkill):
         super(RobotGoSkill, self).__init__(name="RobotGoSkill")
 
     def initialize(self):
-        robot_go_intent = IntentBuilder("RobotGoIntent").require("RobotGoKeyword").require("Word").build()
+
+        self.engine = IntentDeterminationEngine()
+        robot_keyword=["robot", "drone"]
+        for rk in robot_keyword:
+            engine.register_entity(rk, "RobotKeyword")
+
+        robot_move=["go", "move", "monitor", "view", "surveil"]
+        for rm in robot_move:
+            engine.register_entity(rm, "RobotMove")
+
+        robot_location=["place one", "place two", "place three", "area one", "area two", "area three", "point one", "point two", "point three", "spot one", "spot two", "spot three", "zone one", "zone two", "zone three"]
+        for rl in robot_location:
+            engine.register_entity(rl, "RobotLocation")
+
+
+        robot_go_intent = IntentBuilder("RobotGoIntent").require("RobotKeyword").optionally("RobotMove").require("RobotLocation").build()
         self.register_intent(robot_go_intent, self.handle_robot_go_intent)
 
 
+
     def handle_robot_go_intent(self, message):
-        toplaceword = message.data.get("Word")
+        #toplaceword = message.data.get("Word")
         
         self.speak_dialog("move")
         self.speak(toplaceword)
