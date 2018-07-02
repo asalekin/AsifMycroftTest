@@ -51,14 +51,16 @@ class RobotGoSkill(MycroftSkill):
             self.speak(allwords)      
 
     def handle_robot_land_intent(self, message):
+        placeword=""
         placeword = message.data.get("Word")
         allwords=message.data.get('utterance')
 
         self.speak_dialog("land")
 
-        self.speak(allwords)
-
-        self.speak(placeword)
+        if placeword == "":
+            self.speak(allwords)
+        else:
+            self.speak(placeword)
             
 
 
