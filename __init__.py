@@ -39,11 +39,12 @@ class RobotGoSkill(MycroftSkill):
 
     def handle_robot_go_intent(self, message):
         toplaceword = message.data.get("Word")
+
+        allwords=message.data.get('utterance')
         
         self.speak_dialog("move")
         self.speak(toplaceword)
-
-        print(message.data.get('utterance'))
+        self.speak(allwords)
 
     def handle_robot_back_intent(self, message):
         fromplaceword = message.data.get("Word")
