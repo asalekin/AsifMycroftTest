@@ -43,6 +43,8 @@ class RobotGoSkill(MycroftSkill):
         self.speak_dialog("move")
         self.speak(toplaceword)
 
+        print(json.dumps(message, indent=4))
+
     def handle_robot_back_intent(self, message):
         fromplaceword = message.data.get("Word")
         
