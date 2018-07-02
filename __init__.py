@@ -45,6 +45,7 @@ class RobotGoSkill(MycroftSkill):
 
 
         robot_go_intent = IntentBuilder("RobotGoIntent").require("RobotKeyword").optionally("RobotMove").require("RobotLocation").build()
+        self.register_intent_parser(robot_go_intent)
         self.register_intent(robot_go_intent, self.handle_robot_go_intent)
 
 
