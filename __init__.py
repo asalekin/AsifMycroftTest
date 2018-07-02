@@ -33,9 +33,6 @@ class RobotGoSkill(MycroftSkill):
         robot_go_intent = IntentBuilder("RobotGoIntent").require("RobotGoKeyword").require("Word").build()
         self.register_intent(robot_go_intent, self.handle_robot_go_intent)
 
-        robot_back_intent = IntentBuilder("RobotBackIntent").require("RobotBackKeyword").require("Word").build()
-        self.register_intent(robot_back_intent, self.handle_robot_back_intent)
-
 
     def handle_robot_go_intent(self, message):
         toplaceword = message.data.get("Word")
