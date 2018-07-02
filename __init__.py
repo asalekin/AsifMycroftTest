@@ -56,10 +56,9 @@ class RobotGoSkill(MycroftSkill):
 
         self.speak_dialog("land")
 
-        if placeword.isEmpty():
-            self.speak(allwords)
-        else:
-            self.speak(placeword)
+        self.speak(allwords)
+
+        self.speak(placeword)
             
 
 
