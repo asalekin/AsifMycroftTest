@@ -39,7 +39,7 @@ class RobotGoSkill(MycroftSkill):
         for rm in robot_move:
             self.register_entity(rm, "RobotMove")
 
-        robot_location=["place one", "place two", "place three", "area one", "area two", "area three", "point one", "point two", "point three", "spot one", "spot two", "spot three", "zone one", "zone two", "zone three"]
+        robot_location=["virginia", "richmond"]
         for rl in robot_location:
             self.register_entity(rl, "RobotLocation")
 
