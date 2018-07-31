@@ -16,9 +16,11 @@
 # along with Mycroft Core.  If not, see <http://www.gnu.org/licenses/>.
 
 from adapt.intent import IntentBuilder
-
+import nltk
 from mycroft.skills.core import MycroftSkill
 from mycroft.util.log import getLogger
+import nltk
+from nltk.stem.porter import *
 
 __author__ = 'asalekin'
 
@@ -28,40 +30,37 @@ LOGGER = getLogger(__name__)
 class RobotGoSkill(MycroftSkill):
     def __init__(self):
         super(RobotGoSkill, self).__init__(name="RobotGoSkill")
+        stemmer = PorterStemmer()
 
     def initialize(self):
-        robot_go_intent = IntentBuilder("RobotGoIntent").require("RobotGoKeyword").require("Word").build()
+        robot_go_intent = IntentBuilder("RobotGoIntent").require("RobotGoKeyword").build()
         self.register_intent(robot_go_intent, self.handle_robot_go_intent)
 
-        robot_land_intent = IntentBuilder("RobotLandIntent").require("RobotLand").optionally("Word").build()
-        self.register_intent(robot_land_intent, self.handle_robot_land_intent)
-
+        robot_stop_intent = IntentBuilder("RobotStopIntent").require("RobotStopKeyword").build()
+        self.register_intent(robot_stop_intent, self.handle_robot_stop_intent)
 
     def handle_robot_go_intent(self, message):
-        toplaceword = message.data.get("Word")
-
-        allwords=message.data.get('utterance')
-        
-        #self.speak_dialog("move")
-        #self.speak(toplaceword)
-        #self.speak(allwords)
-        if "place" in str(allwords):
-            self.speak(toplaceword)
-        else:
-            self.speak(allwords)      
-
-    def handle_robot_land_intent(self, message):
-        placeword=""
+        #Dest_word = message.data.get("Word")
+        #if message.data.get("robot"):
+        #    Robot_name= message.data.get("robot")
+        #else"
+        #    Robot_name= 'None'
 
         allwords=message.data.get('utterance')
 
-        self.speak_dialog("land")
+        output=stemmer.stem(allwords)
 
-        if message.data.get("Word"):
-            self.speak(message.data.get("Word"))
-        else:
-            self.speak(allwords)
-            
+
+        self.speak(output, expect_response=True)
+
+
+
+    def handle_robot_stop_intent(self, message):
+
+        allwords=message.data.get('utterance')
+
+        self.speak_dialog('stop')
+          
 
 
     def stop(self):

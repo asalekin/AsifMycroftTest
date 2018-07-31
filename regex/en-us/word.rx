@@ -1,1 +1,1 @@
-(to|toward) (place|area|spot|zone) (?P<Word>\w+)
+(place|area|spot|zone|section|sector|territory) (?P<Word>\w+)
