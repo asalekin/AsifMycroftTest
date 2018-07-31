@@ -1,71 +1,59 @@
-# Copyright 2016 Mycroft AI, Inc.
+# Copyright 2017, Mycroft AI Inc.
 #
-# This file is part of Mycroft Core.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
 #
-# Mycroft Core is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
+#    http://www.apache.org/licenses/LICENSE-2.0
 #
-# Mycroft Core is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with Mycroft Core.  If not, see <http://www.gnu.org/licenses/>.
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+from os.path import dirname, join
+
+import pyjokes
 
 from adapt.intent import IntentBuilder
-import nltk
-from mycroft.skills.core import MycroftSkill
-from mycroft.util.log import getLogger
-import nltk
-from nltk.stem.porter import *
-
-__author__ = 'asalekin'
-
-LOGGER = getLogger(__name__)
+from mycroft.skills.core import MycroftSkill, intent_handler
+from random import choice
 
 
-class RobotGoSkill(MycroftSkill):
+joke_types = ['chuck', 'neutral']
+
+
+class JokingSkill(MycroftSkill):
     def __init__(self):
-        super(RobotGoSkill, self).__init__(name="RobotGoSkill")
-        stemmer = PorterStemmer()
+        super(JokingSkill, self).__init__(name="JokingSkill")
 
-    def initialize(self):
-        robot_go_intent = IntentBuilder("RobotGoIntent").require("RobotGoKeyword").build()
-        self.register_intent(robot_go_intent, self.handle_robot_go_intent)
+    def speak_joke(self, lang, category):
+        self.speak(pyjokes.get_joke(language=lang, category=category))
 
-        robot_stop_intent = IntentBuilder("RobotStopIntent").require("RobotStopKeyword").build()
-        self.register_intent(robot_stop_intent, self.handle_robot_stop_intent)
+    @intent_handler(IntentBuilder("JokingIntent").require("Joke"))
+    def handle_general_joke(self, message):
+        selected = choice(joke_types)
+        self.speak_joke(self.lang[:-3], selected)
 
-    def handle_robot_go_intent(self, message):
-        #Dest_word = message.data.get("Word")
-        #if message.data.get("robot"):
-        #    Robot_name= message.data.get("robot")
-        #else"
-        #    Robot_name= 'None'
+    @intent_handler(IntentBuilder("ChuckJokeIntent").require("Joke")
+                    .require("Chuck"))
+    def handle_chuck_joke(self, message):
+        self.speak_joke(self.lang[:-3], 'chuck')
 
-        allwords=message.data.get('utterance')
+    @intent_handler(IntentBuilder("NeutralJokeIntent").require("Joke")
+                    .require("Neutral"))
+    def handle_neutral_joke(self, message):
+        self.speak_joke(self.lang[:-3], 'neutral')
 
-        output=stemmer.stem(allwords)
-
-
-        self.speak(output, expect_response=True)
-
-
-
-    def handle_robot_stop_intent(self, message):
-
-        allwords=message.data.get('utterance')
-
-        self.speak_dialog('stop')
-          
-
+    @intent_handler(IntentBuilder("AdultJokeIntent").require("Joke")
+                    .require("Adult"))
+    def handle_adult_joke(self, message):
+        self.speak_joke(self.lang[:-3], 'adult')
 
     def stop(self):
         pass
 
 
 def create_skill():
-    return RobotGoSkill()
+    return JokingSkill()
