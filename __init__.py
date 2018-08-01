@@ -35,7 +35,7 @@ class MeaningFallback(FallbackSkill):
             and (life in utterance \
                 or universe in utterance \
                 or everything in utterance):
-            self.speak('42')
+            self.speak('42', expect_response=True)
             return True # Indicate that the utterance was handled
         else:
             return False
