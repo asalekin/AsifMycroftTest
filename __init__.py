@@ -14,12 +14,12 @@ class MeaningFallback(FallbackSkill):
             Registers the fallback skill
         """
         self.register_fallback(self.handle_fallback, 1)
-        self.store={}
-        self.store[0]='1'
-        self.store[1]='5'
-        self.store[2]='7'
-        self.store[3]='10'
-        self.talkstring=0
+        #self.store={}
+        #self.store[0]='1'
+        #self.store[1]='5'
+        #self.store[2]='7'
+        #self.store[3]='10'
+        #self.talkstring=0
         # Any other initialize code goes here
 
     def handle_fallback(self, message):
@@ -42,10 +42,10 @@ class MeaningFallback(FallbackSkill):
                 or universe in utterance \
                 or everything in utterance):
 
-            self.speak(self.store[talkstring], expect_response=True)
-            talkstring=talkstring+1
-            if talkstring>3:
-                talkstring=0
+            self.speak("Asif talking to you", expect_response=True)
+            #talkstring=talkstring+1
+            #if talkstring>3:
+            #    talkstring=0
             return True # Indicate that the utterance was handled
         else:
             self.speak('Skill end')
