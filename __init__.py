@@ -7,6 +7,8 @@ class MeaningFallback(FallbackSkill):
         meaning of life, the universe and everything.
     """
     match_words=['robot', 'drone', 'machine']
+    store={}
+    talkstring=0
     
     def __init__(self):
         super(MeaningFallback, self).__init__(name='Meaning Fallback')
@@ -17,10 +19,10 @@ class MeaningFallback(FallbackSkill):
         """
         self.register_fallback(self.handle_fallback, 1)
         #self.store={}
-        #self.store[0]='1'
-        #self.store[1]='5'
-        #self.store[2]='7'
-        #self.store[3]='10'
+        self.store[0]='1'
+        self.store[1]='5'
+        self.store[2]='7'
+        self.store[3]='10'
         #self.talkstring=0
         # Any other initialize code goes here
 
@@ -37,14 +39,14 @@ class MeaningFallback(FallbackSkill):
         if any(i in utterance for i in self.match_words):               #robot in utterance:
 
 
-            self.speak("Asif said "+utterance, expect_response=True)
+            self.speak("Asif said "+self.store[self.talkstring]+" "+utterance, expect_response=True)
         
-            #talkstring=talkstring+1
-            #if talkstring>3:
-            #    talkstring=0
+            self.talkstring=self.talkstring+1
+            if self.talkstring>3:
+                self.talkstring=0
             return True # Indicate that the utterance was handled
         else:
-            self.speak("Skill end and "+utterance)
+            self.speak("Skill end and asif said "+utterance)
             return False
 
     def shutdown(self):
