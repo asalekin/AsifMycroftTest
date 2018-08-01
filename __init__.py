@@ -6,7 +6,7 @@ class MeaningFallback(FallbackSkill):
         A Fallback skill to answer the question about the
         meaning of life, the universe and everything.
     """
-    match_words=['robot', 'drone', 'machine']
+    match_words=['robot', 'drone', 'machine', 'camera', 'check']
     store={}
     talkstring=0
     
