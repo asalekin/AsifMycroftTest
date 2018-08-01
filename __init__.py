@@ -34,19 +34,19 @@ class MeaningFallback(FallbackSkill):
         utterance = message.data.get("utterance")
 
         # get keywords for current language
-        robot = self.dialog_renderer.render('robot')
+        #robot = self.dialog_renderer.render('robot')
 
         if any(i in utterance for i in self.match_words):               #robot in utterance:
 
 
-            self.speak("Asif said "+self.store[self.talkstring]+" "+utterance, expect_response=True)
+            self.speak("Speaker said "+self.store[self.talkstring]+" "+utterance)            #, expect_response=True)
         
             self.talkstring=self.talkstring+1
             if self.talkstring>3:
                 self.talkstring=0
             return True # Indicate that the utterance was handled
         else:
-            self.speak("Skill end and asif said "+utterance)
+            self.speak("Skill not matched and Speaker said "+utterance)
             return False
 
     def shutdown(self):
