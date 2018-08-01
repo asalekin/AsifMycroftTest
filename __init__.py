@@ -6,6 +6,7 @@ class MeaningFallback(FallbackSkill):
         A Fallback skill to answer the question about the
         meaning of life, the universe and everything.
     """
+    
     def __init__(self):
         super(MeaningFallback, self).__init__(name='Meaning Fallback')
 
@@ -30,17 +31,9 @@ class MeaningFallback(FallbackSkill):
         utterance = message.data.get("utterance")
 
         # get keywords for current language
-        what = self.dialog_renderer.render('query')
-        meaning = self.dialog_renderer.render('meaning')
-        life = self.dialog_renderer.render('life')
-        universe = self.dialog_renderer.render('universe')
-        everything = self.dialog_renderer.render('everything')
+        robot = self.dialog_renderer.render('robot')
 
-        if what in utterance \
-            and meaning in utterance \
-            and (life in utterance \
-                or universe in utterance \
-                or everything in utterance):
+        if robot in utterance:
 
             self.speak("Asif talking to you", expect_response=True)
             #talkstring=talkstring+1
