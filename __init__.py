@@ -37,13 +37,14 @@ class MeaningFallback(FallbackSkill):
         if any(i in utterance for i in self.match_words):               #robot in utterance:
 
 
-            self.speak("Asif talking to you", expect_response=True)
+            self.speak("Asif said "+utterance, expect_response=True)
+        
             #talkstring=talkstring+1
             #if talkstring>3:
             #    talkstring=0
             return True # Indicate that the utterance was handled
         else:
-            self.speak('Skill end')
+            self.speak("Skill end and "+utterance)
             return False
 
     def shutdown(self):
