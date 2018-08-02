@@ -11,18 +11,9 @@ class MeaningFallback(FallbackSkill):
     match_words=['robot', 'drone', 'machine', 'camera', 'check']
     store={}
     talkstring=0
-
-    machine_location_dict={}
-    machine_type_dict={}
-
-    Last_location=""
-    Last_name=""
-    #stemmer = PorterStemmer()
     
     def __init__(self):
         super(MeaningFallback, self).__init__(name='Meaning Fallback')
-        #self.stemmer = PorterStemmer()
-        
 
     def initialize(self):
         """
@@ -48,9 +39,7 @@ class MeaningFallback(FallbackSkill):
         #robot = self.dialog_renderer.render('robot')
 
         if any(i in utterance for i in self.match_words):               #robot in utterance:
- 
-            #stemmed_sentence=stemmer.stem(utterance)
-            #self.speak("Speaker said "+stemmed_sentence)
+
             self.speak("Speaker said "+utterance)
             #self.speak("Speaker said "+self.store[self.talkstring]+" "+utterance)            #, expect_response=True)
         
