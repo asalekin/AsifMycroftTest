@@ -1,6 +1,6 @@
 from mycroft.skills.core import FallbackSkill
 from mycroft.skills.core import MycroftSkill, intent_handler
-import numpy as np
+from nltk.stem.porter import *
 
 class MeaningFallback(FallbackSkill):
     """
