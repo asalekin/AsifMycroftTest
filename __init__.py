@@ -18,6 +18,7 @@ class MeaningFallback(FallbackSkill):
     count=100
     Last_location=""
     Last_name=""
+    stemmer = PorterStemmer()
     
     def __init__(self):
         super(MeaningFallback, self).__init__(name='Meaning Fallback')
@@ -48,7 +49,7 @@ class MeaningFallback(FallbackSkill):
 
         if any(i in utterance for i in self.match_words):               #robot in utterance:
 
-            if 'factori' in stemmer.stem(utterance):
+            if 'factori' in self.stemmer.stem(utterance):
                 self.speak("Speaker said factory")
             else:
                 self.speak("Speaker said "+utterance)
