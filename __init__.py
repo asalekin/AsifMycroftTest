@@ -17,7 +17,7 @@ class MeaningFallback(FallbackSkill):
 
     Last_location=""
     Last_name=""
-    stemmer = PorterStemmer()
+    #stemmer = PorterStemmer()
     
     def __init__(self):
         super(MeaningFallback, self).__init__(name='Meaning Fallback')
