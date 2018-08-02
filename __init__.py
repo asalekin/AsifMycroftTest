@@ -1,5 +1,7 @@
 from mycroft.skills.core import FallbackSkill
-
+import nltk
+from nltk.stem.porter import *
+import numpy as np
 
 class MeaningFallback(FallbackSkill):
     """
@@ -9,9 +11,18 @@ class MeaningFallback(FallbackSkill):
     match_words=['robot', 'drone', 'machine', 'camera', 'check']
     store={}
     talkstring=0
+
+    machine_location_dict={}
+    machine_type_dict={}
+
+    Last_location=""
+    Last_name=""
+    stemmer = PorterStemmer()
     
     def __init__(self):
         super(MeaningFallback, self).__init__(name='Meaning Fallback')
+        self.stemmer = PorterStemmer()
+        
 
     def initialize(self):
         """
