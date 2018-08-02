@@ -1,5 +1,5 @@
 from mycroft.skills.core import FallbackSkill
-
+from mycroft.skills.core import MycroftSkill, intent_handler
 
 class MeaningFallback(FallbackSkill):
     """
