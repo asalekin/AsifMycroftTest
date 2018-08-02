@@ -1,62 +1,50 @@
-from mycroft.skills.core import FallbackSkill
-from mycroft.skills.core import MycroftSkill, intent_handler
-from nltk.stem.porter import *
+# Copyright 2016 Mycroft AI, Inc.
+#
+# This file is part of Mycroft Core.
+#
+# Mycroft Core is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Mycroft Core is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Mycroft Core.  If not, see <http://www.gnu.org/licenses/>.
 
-class MeaningFallback(FallbackSkill):
-    """
-        A Fallback skill to answer the question about the
-        meaning of life, the universe and everything.
-    """
-    match_words=['robot', 'drone', 'machine', 'camera', 'check']
-    store={}
-    talkstring=0
-    
+from adapt.intent import IntentBuilder
+
+from mycroft.skills.core import MycroftSkill
+from mycroft.util.log import getLogger
+
+__author__ = 'asalekin'
+
+LOGGER = getLogger(__name__)
+
+
+class RobotGoSkill(MycroftSkill):
     def __init__(self):
-        super(MeaningFallback, self).__init__(name='Meaning Fallback')
+        super(RobotGoSkill, self).__init__(name="RobotGoSkill")
 
     def initialize(self):
-        """
-            Registers the fallback skill
-        """
-        self.register_fallback(self.handle_fallback, 1)
-        #self.store={}
-        self.store[0]='1'
-        self.store[1]='5'
-        self.store[2]='7'
-        self.store[3]='10'
-        #self.talkstring=0
-        # Any other initialize code goes here
+        robot_go_intent = IntentBuilder("RobotGoIntent").require("RobotGoKeyword").require("Word").build()
+        self.register_intent(robot_go_intent, self.handle_robot_go_intent)
 
-    def handle_fallback(self, message):
-        """
-            Answers question about the meaning of life, the universe
-            and everything.
-        """
-        utterance = message.data.get("utterance")
 
-        # get keywords for current language
-        #robot = self.dialog_renderer.render('robot')
 
-        if any(i in utterance for i in self.match_words):               #robot in utterance:
+    def handle_robot_go_intent(self, message):
+        placeword = message.data.get("Word")
+        self.speak(placeword)
+        self.speak_dialog("welcome")
 
-            self.speak("Speaker said "+utterance)
-            #self.speak("Speaker said "+self.store[self.talkstring]+" "+utterance)            #, expect_response=True)
-        
-            #self.talkstring=self.talkstring+1
-            #if self.talkstring>3:
-            #    self.talkstring=0
-            return True # Indicate that the utterance was handled
-        else:
-            self.speak("Skill not matched and Speaker said "+utterance)
-            return False
 
-    def shutdown(self):
-        """
-            Remove this skill from list of fallback skills.
-        """
-        self.remove_fallback(self.handle_fallback)
-        super(MeaningFallback, self).shutdown()
+
+    def stop(self):
+        pass
 
 
 def create_skill():
-    return MeaningFallback()
+    return RobotGoSkill()
