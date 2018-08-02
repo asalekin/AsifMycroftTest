@@ -21,7 +21,7 @@ class MeaningFallback(FallbackSkill):
     
     def __init__(self):
         super(MeaningFallback, self).__init__(name='Meaning Fallback')
-        self.stemmer = PorterStemmer()
+        #self.stemmer = PorterStemmer()
         
 
     def initialize(self):
@@ -49,8 +49,9 @@ class MeaningFallback(FallbackSkill):
 
         if any(i in utterance for i in self.match_words):               #robot in utterance:
  
-            stemmed_sentence=stemmer.stem(utterance)
-            self.speak("Speaker said "+stemmed_sentence)
+            #stemmed_sentence=stemmer.stem(utterance)
+            #self.speak("Speaker said "+stemmed_sentence)
+            self.speak("Speaker said "+utterance)
             #self.speak("Speaker said "+self.store[self.talkstring]+" "+utterance)            #, expect_response=True)
         
             #self.talkstring=self.talkstring+1
