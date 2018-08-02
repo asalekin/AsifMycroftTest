@@ -11,9 +11,17 @@ class MeaningFallback(FallbackSkill):
     match_words=['robot', 'drone', 'machine', 'camera', 'check']
     store={}
     talkstring=0
+
+    machine_location_dict={}
+    machine_type_dict={}
+
+    count=100
+    Last_location=""
+    Last_name=""
     
     def __init__(self):
         super(MeaningFallback, self).__init__(name='Meaning Fallback')
+        self.stemmer = PorterStemmer()
 
     def initialize(self):
         """
