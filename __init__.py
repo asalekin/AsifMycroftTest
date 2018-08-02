@@ -1,7 +1,5 @@
 from mycroft.skills.core import FallbackSkill
-import nltk
-from nltk.stem.porter import *
-import numpy as np
+
 
 class MeaningFallback(FallbackSkill):
     """
