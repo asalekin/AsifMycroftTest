@@ -48,8 +48,9 @@ class MeaningFallback(FallbackSkill):
         #robot = self.dialog_renderer.render('robot')
 
         if any(i in utterance for i in self.match_words):               #robot in utterance:
-
-            self.speak("Speaker said "+utterance)
+ 
+            stemmed_sentence=stemmer.stem(utterance)
+            self.speak("Speaker said "+stemmed_sentence)
             #self.speak("Speaker said "+self.store[self.talkstring]+" "+utterance)            #, expect_response=True)
         
             #self.talkstring=self.talkstring+1
