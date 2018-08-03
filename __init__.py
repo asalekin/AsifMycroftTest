@@ -44,6 +44,18 @@ class MeaningFallback(FallbackSkill):
         super(MeaningFallback, self).__init__(name='Meaning Fallback')
         self.stemmer = PorterStemmer()
 
+        try:
+            self.socket.connect((self.host, self.port))
+            """
+                # send the length of the serialized data first
+                self.socket.send('%d\n' % len(serialized))
+                # send the serialized data
+                self.socket.sendall(serialized)
+            """
+            self.socket.close()
+        except (TypeError, ValueError), e:
+            self.speak("connection error")
+
     def initialize(self):
         """
             Registers the fallback skill
@@ -437,17 +449,9 @@ class MeaningFallback(FallbackSkill):
 
             self.speak("TASK "+TASK+ " Machine Name "+Machine_NAME+"  "+str(LOCATION).strip('[]'))
             serialized=json.dumps({'Task': TASK, 'Nickname':Machine_NAME, 'Type':Machine_Type, 'Location':LOCATION})
-            """
-            try:
-                self.socket.connect((self.host, self.port))
-                # send the length of the serialized data first
-                self.socket.send('%d\n' % len(serialized))
-                # send the serialized data
-                self.socket.sendall(serialized)
-                self.socket.close()
-            except (TypeError, ValueError), e:
-                self.speak("connection error")
-            """
+            
+
+
 
             return True # Indicate that the utterance was handled
 
