@@ -43,7 +43,7 @@ class MeaningFallback(FallbackSkill):
     def __init__(self):
         super(MeaningFallback, self).__init__(name='Meaning Fallback')
         self.stemmer = PorterStemmer()
-
+        self.socket = socket.socket()
 
     def initialize(self):
         """
