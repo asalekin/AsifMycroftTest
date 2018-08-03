@@ -437,7 +437,7 @@ class MeaningFallback(FallbackSkill):
 
             self.speak("TASK "+TASK+ " Machine Name "+Machine_NAME+"  "+str(LOCATION).strip('[]'))
             serialized=json.dumps({'Task': TASK, 'Nickname':Machine_NAME, 'Type':Machine_Type, 'Location':LOCATION})
-
+            """
             try:
                 self.socket.connect((self.host, self.port))
                 # send the length of the serialized data first
@@ -447,7 +447,7 @@ class MeaningFallback(FallbackSkill):
                 self.socket.close()
             except (TypeError, ValueError), e:
                 self.speak("connection error")
-
+            """
 
             return True # Indicate that the utterance was handled
 
