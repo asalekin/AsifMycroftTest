@@ -54,7 +54,7 @@ class MeaningFallback(FallbackSkill):
             """
             self.socket.close()
         except (TypeError, ValueError), e:
-            self.speak("connection error")
+            #self.speak("connection error")
 
     def initialize(self):
         """
