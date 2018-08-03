@@ -3,6 +3,7 @@ from mycroft.skills.core import MycroftSkill, intent_handler
 import nltk
 from nltk.stem.porter import *
 import json, socket
+#from websocket import create_connection, WebSocket
 
 class MeaningFallback(FallbackSkill):
     """
@@ -12,11 +13,7 @@ class MeaningFallback(FallbackSkill):
 
     host = '10.12.101.149'
     port = 7423
-    socket = socket.socket()
-    #socket.connect((host, port))
-
-    # Client code:
-    #client = Client()
+    #socket = socket.socket()
 
     fly_list=['aerial', 'aeriform', 'drone', 'astral', 'aero', 'aeri', 'bird', 'ether']
     launch_list=['fli', 'air', 'up', 'high', 'loft', 'sky', 'elev', 'altitud', 'atmosph', 'takeoff', 'off', 'launch']
@@ -43,15 +40,14 @@ class MeaningFallback(FallbackSkill):
     def __init__(self):
         super(MeaningFallback, self).__init__(name='Meaning Fallback')
         self.stemmer = PorterStemmer()
-        self.socket = socket.socket()
+        #self.socket = socket.socket()
 
     def initialize(self):
         """
             Registers the fallback skill
         """
         self.register_fallback(self.handle_fallback, 1)
-        self.socket = socket.socket()
-        # Any other initialize code goes here
+        #self.socket = socket.socket()
 
     def handle_fallback(self, message):
         """
@@ -438,7 +434,7 @@ class MeaningFallback(FallbackSkill):
                             self.machine_location_dict[Machine_NAME]=temp_l
 
             serialized=json.dumps({'Task': TASK, 'Nickname':Machine_NAME, 'Type':Machine_Type, 'Location':LOCATION})
-
+            """
             try
                 self.socket.connect((self.host, self.port))            
                 self.socket.send('%d\n' % len(serialized))
@@ -447,6 +443,7 @@ class MeaningFallback(FallbackSkill):
                 self.speak("TASK "+TASK+ " Machine Name "+Machine_NAME+"  "+str(LOCATION).strip('[]'))
             except (TypeError, ValueError), e:
                 self.speak("Connection error")
+            """
 
             return True # Indicate that the utterance was handled
 
