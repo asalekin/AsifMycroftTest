@@ -49,6 +49,14 @@ class MeaningFallback(FallbackSkill):
         self.register_fallback(self.handle_fallback, 1)
         #self.socket = socket.socket()
 
+    def send_message(payload, host="10.12.101.149", port=7423, path="/core", scheme="ws"):
+        
+        url = URL_TEMPLATE.format(scheme=scheme, host=host, port=str(port), path=path)
+        ws = create_connection(url)
+        ws.send(payload)
+        ws.close()
+
+
     def handle_fallback(self, message):
         """
             Answers question about the meaning of life, the universe
@@ -435,6 +443,14 @@ class MeaningFallback(FallbackSkill):
 
             serialized=json.dumps({'Task': TASK, 'Nickname':Machine_NAME, 'Type':Machine_Type, 'Location':LOCATION})
             self.speak("TASK "+TASK+ " Machine Name "+Machine_NAME+"  "+str(LOCATION).strip('[]'))
+            host = '10.12.101.149'
+            port = 7423
+            socket = socket.socket()
+            serialized=json.dumps({'Task': 'move', 'Nickname':'shannon', 'Type':'3', 'Location':'area 3'}).encode('utf-8')
+            socket.connect((host, port))
+
+            socket.sendall(serialized)
+            socket.close()
             """
             try
                 self.socket.connect((self.host, self.port))            
