@@ -8,7 +8,6 @@ class MeaningFallback(FallbackSkill):
         A Fallback skill to answer the question about the
         meaning of life, the universe and everything.
     """
-    match_words=
 
     fly_list=['aerial', 'aeriform', 'drone', 'astral', 'aero', 'aeri', 'bird', 'ether']
     launch_list=['fli', 'air', 'up', 'high', 'loft', 'sky', 'elev', 'altitud', 'atmosph', 'takeoff', 'off', 'launch']
