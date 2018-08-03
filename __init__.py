@@ -436,6 +436,7 @@ class MeaningFallback(FallbackSkill):
                             self.machine_location_dict[Machine_NAME]=temp_l
 
             self.speak("TASK "+TASK+ " Machine Name "+Machine_NAME+"  "+str(LOCATION).strip('[]'))
+            data=json.dumps({'Task': TASK, 'Nickname':Machine_NAME, 'Type':Machine_Type, 'Location':LOCATION})
             #client.connect(host, port).send({'Task': TASK, 'Nickname':Machine_NAME, 'Type':Machine_Type, 'Location':LOCATION})
             #response = client.recv()
             #self.speak(response)
