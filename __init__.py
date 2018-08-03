@@ -439,9 +439,9 @@ class MeaningFallback(FallbackSkill):
             serialized=json.dumps({'Task': TASK, 'Nickname':Machine_NAME, 'Type':Machine_Type, 'Location':LOCATION})
 
             try
-                socket.connect((host, port))            
-                socket.send('%d\n' % len(serialized))
-                socket.sendall(serialized)
+                self.socket.connect((self.host, self.port))            
+                self.socket.send('%d\n' % len(serialized))
+                self.socket.sendall(serialized)
                 self.socket.close()
                 self.speak("TASK "+TASK+ " Machine Name "+Machine_NAME+"  "+str(LOCATION).strip('[]'))
             except (TypeError, ValueError), e:
