@@ -12,6 +12,8 @@ class MeaningFallback(FallbackSkill):
 
     host = '10.12.101.149'
     port = 7423
+    socket = socket.socket()
+    #socket.connect((host, port))
 
     # Client code:
     #client = Client()
