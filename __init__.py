@@ -3,7 +3,7 @@ from mycroft.skills.core import MycroftSkill, intent_handler
 import nltk
 from nltk.stem.porter import *
 import json, socket
-
+from jsonsocket import Client
 
 
 class MeaningFallback(FallbackSkill):
