@@ -8,7 +8,7 @@ class MeaningFallback(FallbackSkill):
         A Fallback skill to answer the question about the
         meaning of life, the universe and everything.
     """
-    match_words=['robot', 'drone', 'machine', 'camera', 'check']
+    match_words=
 
     fly_list=['aerial', 'aeriform', 'drone', 'astral', 'aero', 'aeri', 'bird', 'ether']
     launch_list=['fli', 'air', 'up', 'high', 'loft', 'sky', 'elev', 'altitud', 'atmosph', 'takeoff', 'off', 'launch']
@@ -23,6 +23,7 @@ class MeaningFallback(FallbackSkill):
     put_list=['drop', 'put', 'set', 'place', 'situat']
     package_list=['good', 'materi', 'shipment', 'object','packag', 'payload', 'box', 'cargo', 'load', 'product', 'packet', 'item', 'body']
 
+    match_words=fly_list+launch_list+land_list+inspect_list+move_list+video_list+location_list+pick_list+pickntake_list+put_list+package_list
 
     machine_location_dict={}
     machine_type_dict={}
@@ -47,21 +48,25 @@ class MeaningFallback(FallbackSkill):
             Answers question about the meaning of life, the universe
             and everything.
         """
-        utterance = message.data.get("utterance")
-        if any(i in utterance for i in self.match_words):  # robot in utterance:
+        allwords = message.data.get("utterance")
+
+        allwords=allwords.lower()
+        allwords_words=allwords.split(" ")
+
+        allwords_token=nltk.word_tokenize(allwords)
+        word_stemmed = [self.stemmer.stem(plural) for plural in allwords_token]
+
+        
+
+        if any(s in self.match_words for s in word_stemmed):
+
             TASK=""
             LOCATION=[]
             Machine_Type="Ground"
             Machine_NAME=""
             Location_index=[]
 
-            allwords = message.data.get("utterance")
-
-            allwords=allwords.lower()
-            allwords_words=allwords.split(" ")
-
-            allwords_token=nltk.word_tokenize(allwords)
-            word_stemmed = [stemmer.stem(plural) for plural in allwords_token]
+            
             posTagged=nltk.pos_tag(allwords_token)
 
             drone_flag=False
@@ -160,7 +165,7 @@ class MeaningFallback(FallbackSkill):
                 #print(amachine_index[0])
                 if 'a' == allwords_words[amachine_index[0]-1]:
                     Machine_NAME=''
-                    Last_name=''
+                    self.Last_name=''
                 elif (len(posTagged)>(amachine_index[0]+1)) and ('NN' in posTagged[amachine_index[0]+1][1]):
                     Machine_NAME=allwords_words[amachine_index[0]+1]
                     MachineName_flag=True
@@ -180,12 +185,12 @@ class MeaningFallback(FallbackSkill):
 
             # machine_location_dict[Machine_NAME]
             if MachineName_flag==False:
-                for keys in machine_location_dict.keys():
+                for keys in self.machine_location_dict.keys():
                     if keys in allwords:
                         Machine_NAME=keys
                         MachineName_flag=True
 
-                        Machine_Type=machine_type_dict[keys]   ############ retrieve the machines type from dictionary
+                        Machine_Type=self.machine_type_dict[keys]   ############ retrieve the machines type from dictionary
 
 
             ########################## launch or land logic
@@ -206,21 +211,21 @@ class MeaningFallback(FallbackSkill):
 
             ####################################### machine name resolve
             if MachineName_flag==True:
-                Last_name=Machine_NAME
+                self.Last_name=Machine_NAME
             else:
                 if ('camera' in allwords) and (location_flag==True):
                     Machine_NAME="Static"
                     Machine_Type="Static"
                 else:
-                    if Last_name!="":
-                        Machine_NAME=Last_name
-                        #Machine_Type=machine_type_dict[Machine_NAME]
+                    if self.Last_name!="":
+                        Machine_NAME=self.Last_name
+                        #Machine_Type=self.machine_type_dict[Machine_NAME]
 
                 MachineName_flag=True
 
             ###################################################################### pick and place
 
-            if TASK=="" and (MachineName_flag==True or (Last_name != "")) and (location_flag==True or (Last_location != "")): ###################################### default task move
+            if TASK=="" and (MachineName_flag==True or (self.Last_name != "")) and (location_flag==True or (self.Last_location != "")): ###################################### default task move
                 TASK="MOVE"
 
             ###### hand back/return
@@ -270,18 +275,18 @@ class MeaningFallback(FallbackSkill):
 
             else:
                 if any(i in allwords for i in back_word) and MachineName_flag==True:  ############## handle back here
-                    if Machine_NAME in machine_location_dict:
+                    if Machine_NAME in self.machine_location_dict:
                         #######################################################################LOCATION=machine_location_dict[Machine_NAME]
-                        temp_l=machine_location_dict[Machine_NAME]
+                        temp_l=self.machine_location_dict[Machine_NAME]
 
                         if len(temp_l)<2:
                             LOCATION=['base']
                         else:
                             LOCATION=temp_l[len(temp_l)-2]
                     else:
-                        LOCATION=Last_location
+                        LOCATION=self.Last_location
                 else:
-                    LOCATION=Last_location
+                    LOCATION=self.Last_location
 
             #if TASK=="PnP":                                                    ################ area na deowa thakle ki hbe ahnlde kora hoy nai
             if len(LOCATION)>1:
@@ -387,42 +392,42 @@ class MeaningFallback(FallbackSkill):
             if len(LOCATION)==1:
                 #Last_location=LOCATION
                 if 'Destination' in LOCATION[0]:
-                    Last_location=LOCATION[0].split('Destination ')[1]
+                    self.Last_location=LOCATION[0].split('Destination ')[1]
                 elif 'Source' in LOCATION[0]:
-                    Last_location=LOCATION[0].split('Source ')[1]
+                    self.Last_location=LOCATION[0].split('Source ')[1]
                 else:
-                    Last_location=LOCATION
+                    self.Last_location=LOCATION
 
                 ########################################################### saving individual machine location
-                if Machine_NAME in machine_location_dict:
-                    temp_l=machine_location_dict[Machine_NAME]
-                    temp_l.append(Last_location)
+                if Machine_NAME in self.machine_location_dict:
+                    temp_l=self.machine_location_dict[Machine_NAME]
+                    temp_l.append(self.Last_location)
                     if len(temp_l)>2:
                         del temp_l[0]
-                    machine_location_dict[Machine_NAME]=temp_l
+                    self.machine_location_dict[Machine_NAME]=temp_l
                 elif Machine_NAME !="":
                     temp_l=[]
-                    temp_l.append(Last_location)
-                    machine_type_dict[Machine_NAME]=Machine_Type
-                    machine_location_dict[Machine_NAME]=temp_l
+                    temp_l.append(self.Last_location)
+                    self.machine_type_dict[Machine_NAME]=Machine_Type
+                    self.machine_location_dict[Machine_NAME]=temp_l
 
             elif len(LOCATION)>1:
                 for i in range(len(LOCATION)):
                     if 'Destination' in LOCATION[i]:
-                        Last_location=LOCATION[i].split('Destination ')[1]
+                        self.Last_location=LOCATION[i].split('Destination ')[1]
 
                         ########################################################### saving individual machine location
-                        if Machine_NAME in machine_location_dict:
-                            temp_l=machine_location_dict[Machine_NAME]
-                            temp_l.append(Last_location)
+                        if Machine_NAME in self.machine_location_dict:
+                            temp_l=self.machine_location_dict[Machine_NAME]
+                            temp_l.append(self.Last_location)
                             if len(temp_l)>2:
                                 del temp_l[0]
-                            machine_location_dict[Machine_NAME]=temp_l
+                            self.machine_location_dict[Machine_NAME]=temp_l
                         elif Machine_NAME !="":
                             temp_l=[]
-                            temp_l.append(Last_location)
-                            machine_type_dict[Machine_NAME]=Machine_Type
-                            machine_location_dict[Machine_NAME]=temp_l
+                            temp_l.append(self.Last_location)
+                            self.machine_type_dict[Machine_NAME]=Machine_Type
+                            self.machine_location_dict[Machine_NAME]=temp_l
 
             self.speak("TASK "+TASK+ " Machine Name "+Machine_NAME+"  "+str(LOCATION).strip('[]'))
 
