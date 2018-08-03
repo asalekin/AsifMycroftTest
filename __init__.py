@@ -2,12 +2,19 @@ from mycroft.skills.core import FallbackSkill
 from mycroft.skills.core import MycroftSkill, intent_handler
 import nltk
 from nltk.stem.porter import *
+from jsonsocket import Client, Server
 
 class MeaningFallback(FallbackSkill):
     """
         A Fallback skill to answer the question about the
         meaning of life, the universe and everything.
     """
+
+    host = '10.12.101.149'
+    port = 7423
+
+    # Client code:
+    client = Client()
 
     fly_list=['aerial', 'aeriform', 'drone', 'astral', 'aero', 'aeri', 'bird', 'ether']
     launch_list=['fli', 'air', 'up', 'high', 'loft', 'sky', 'elev', 'altitud', 'atmosph', 'takeoff', 'off', 'launch']
@@ -238,19 +245,19 @@ class MeaningFallback(FallbackSkill):
             if location_flag==True:
                 for i in range(len(location_index)):
                     if (location_index[i]-1)>=0  and posTagged[location_index[i]-1][1]=='CD':
-                        LOCATION.append(allwords_words[location_index[i]]+" "+allwords_words[location_index[i]-1])
+                        LOCATION.append(allwords_words[location_index[i]-1])
                         Location_index.append(location_index[i])
 
                     elif (len(posTagged)>(location_index[i]+1)) and posTagged[location_index[i]+1][1]=='CD':
-                        LOCATION.append(allwords_words[location_index[i]]+" "+allwords_words[location_index[i]+1])
+                        LOCATION.append(allwords_words[location_index[i]+1])
                         Location_index.append(location_index[i])
 
                     elif (len(posTagged)>(location_index[i]+2)) and ('VB' in posTagged[location_index[i]+1][1]) and posTagged[location_index[i]+2][1]=='CD':
-                        LOCATION.append(allwords_words[location_index[i]]+" "+allwords_words[location_index[i]+2])
+                        LOCATION.append(allwords_words[location_index[i]+2])
                         Location_index.append(location_index[i])
 
                     elif (location_index[i]-2)>=0  and ('VB' in posTagged[location_index[i]-1][1]) and posTagged[location_index[i]-2][1]=='CD':
-                        LOCATION.append(allwords_words[location_index[i]]+" "+allwords_words[location_index[i]-2])
+                        LOCATION.append(allwords_words[location_index[i]-2])
                         Location_index.append(location_index[i])
 
                     else:
@@ -258,10 +265,6 @@ class MeaningFallback(FallbackSkill):
 
                         if 'factori' in word_stemmed[location_index[i]]:
                             LOCATION.append("Factory")
-                            Location_index.append(location_index[i])
-
-                        elif 'warehous' in word_stemmed[location_index[i]]:
-                            LOCATION.append("Warehouse")
                             Location_index.append(location_index[i])
 
                         elif word_stemmed[location_index[i]] in parking_lot_defined_locations and ("Parking Lot" not in LOCATION):
@@ -382,9 +385,11 @@ class MeaningFallback(FallbackSkill):
                 TASK="PnP"
                 if len(LOCATION)==1:
                     if pickntake_flag ==True:
-                        LOCATION[0]='Source '+LOCATION[0]
+                        TASK="Pick"
+                        #LOCATION[0]='Source '+LOCATION[0]
                     elif put_flag ==True:
-                        LOCATION[0]='Destination '+LOCATION[0]
+                        TASK="Put"
+                        #LOCATION[0]='Destination '+LOCATION[0]
 
 
             ######################################## save machine location
@@ -429,6 +434,10 @@ class MeaningFallback(FallbackSkill):
                             self.machine_location_dict[Machine_NAME]=temp_l
 
             self.speak("TASK "+TASK+ " Machine Name "+Machine_NAME+"  "+str(LOCATION).strip('[]'))
+            #client.connect(host, port).send({'Task': TASK, 'Nickname':Machine_NAME, 'Type':Machine_Type, 'Location':LOCATION})
+            #response = client.recv()
+            #self.speak(response)
+            #client.close()
 
             return True # Indicate that the utterance was handled
 
