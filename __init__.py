@@ -2,7 +2,9 @@ from mycroft.skills.core import FallbackSkill
 from mycroft.skills.core import MycroftSkill, intent_handler
 import nltk
 from nltk.stem.porter import *
-from jsonsocket import Client, Server
+import json, socket
+
+
 
 class MeaningFallback(FallbackSkill):
     """
@@ -14,7 +16,7 @@ class MeaningFallback(FallbackSkill):
     port = 7423
 
     # Client code:
-    client = Client()
+    #client = Client()
 
     fly_list=['aerial', 'aeriform', 'drone', 'astral', 'aero', 'aeri', 'bird', 'ether']
     launch_list=['fli', 'air', 'up', 'high', 'loft', 'sky', 'elev', 'altitud', 'atmosph', 'takeoff', 'off', 'launch']
