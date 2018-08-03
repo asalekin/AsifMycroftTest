@@ -49,14 +49,6 @@ class MeaningFallback(FallbackSkill):
         self.register_fallback(self.handle_fallback, 1)
         #self.socket = socket.socket()
 
-    def send_message(payload, host="10.12.101.149", port=7423, path="/core", scheme="ws"):
-        
-        url = URL_TEMPLATE.format(scheme=scheme, host=host, port=str(port), path=path)
-        ws = create_connection(url)
-        ws.send(payload)
-        ws.close()
-
-
     def handle_fallback(self, message):
         """
             Answers question about the meaning of life, the universe
