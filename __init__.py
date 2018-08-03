@@ -434,6 +434,7 @@ class MeaningFallback(FallbackSkill):
                             self.machine_location_dict[Machine_NAME]=temp_l
 
             serialized=json.dumps({'Task': TASK, 'Nickname':Machine_NAME, 'Type':Machine_Type, 'Location':LOCATION})
+            self.speak("TASK "+TASK+ " Machine Name "+Machine_NAME+"  "+str(LOCATION).strip('[]'))
             """
             try
                 self.socket.connect((self.host, self.port))            
