@@ -431,7 +431,7 @@ class MeaningFallback(FallbackSkill):
                             self.machine_type_dict[Machine_NAME]=Machine_Type
                             self.machine_location_dict[Machine_NAME]=temp_l
 
-            serialized=json.dumps({'Task': TASK, 'Nickname':Machine_NAME, 'Type':Machine_Type, 'Location':LOCATION})
+            serialized=json.dumps({'Task': TASK, 'Nickname':Machine_NAME, 'Type':Machine_Type, 'Location':LOCATION}).encode('utf-8')
             self.speak("TASK "+TASK+ " Machine Name "+Machine_NAME+"  "+str(LOCATION).strip('[]'))
 
             #serialized=json.dumps({'Task': 'move', 'Nickname':'shannon', 'Type':'3', 'Location':'area 3'}).encode('utf-8')
