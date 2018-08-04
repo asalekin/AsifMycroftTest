@@ -11,9 +11,9 @@ class MeaningFallback(FallbackSkill):
         meaning of life, the universe and everything.
     """
 
-    host = '10.12.101.149'
-    port = 7423
-    #socket = socket.socket()
+    #host = '10.12.101.149'
+    #port = 7423
+
 
     fly_list=['aerial', 'aeriform', 'drone', 'astral', 'aero', 'aeri', 'bird', 'ether']
     launch_list=['fli', 'air', 'up', 'high', 'loft', 'sky', 'elev', 'altitud', 'atmosph', 'takeoff', 'off', 'launch']
@@ -40,14 +40,12 @@ class MeaningFallback(FallbackSkill):
     def __init__(self):
         super(MeaningFallback, self).__init__(name='Meaning Fallback')
         self.stemmer = PorterStemmer()
-        #self.socket = socket.socket()
 
     def initialize(self):
         """
             Registers the fallback skill
         """
         self.register_fallback(self.handle_fallback, 1)
-        #self.socket = socket.socket()
 
     def handle_fallback(self, message):
         """
@@ -433,8 +431,16 @@ class MeaningFallback(FallbackSkill):
                             self.machine_type_dict[Machine_NAME]=Machine_Type
                             self.machine_location_dict[Machine_NAME]=temp_l
 
-            serialized=json.dumps({'Task': TASK, 'Nickname':Machine_NAME, 'Type':Machine_Type, 'Location':LOCATION})
+            #serialized=json.dumps({'Task': TASK, 'Nickname':Machine_NAME, 'Type':Machine_Type, 'Location':LOCATION})
             self.speak("TASK "+TASK+ " Machine Name "+Machine_NAME+"  "+str(LOCATION).strip('[]'))
+
+            serialized=json.dumps({'Task': 'move', 'Nickname':'shannon', 'Type':'3', 'Location':'area 3'}).encode('utf-8')
+            clientsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            clientsocket.connect(('localhost', 2001))
+            clientsocket.sendall(serialized)
+            clientsocket.close()
+
+            """
             host = '10.12.101.149'
             port = 7423
             socket = socket.socket()
@@ -443,7 +449,7 @@ class MeaningFallback(FallbackSkill):
 
             socket.sendall(serialized)
             socket.close()
-            """
+
             try
                 self.socket.connect((self.host, self.port))            
                 self.socket.send('%d\n' % len(serialized))
