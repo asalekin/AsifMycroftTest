@@ -66,7 +66,7 @@ class MeaningFallback(FallbackSkill):
 
             TASK=""
             LOCATION=[]
-            Machine_Type="Ground"
+            Machine_Type="ground"
             Machine_NAME=""
             Location_index=[]
 
@@ -94,7 +94,7 @@ class MeaningFallback(FallbackSkill):
                 land_flag=True
 
             if drone_flag==True or launch_flag==True or land_flag==True:
-                Machine_Type="Aerial"
+                Machine_Type="aerial"
 
             ################################ get inspect info
             inspect_flag=False
@@ -200,26 +200,26 @@ class MeaningFallback(FallbackSkill):
             ########################## launch or land logic
 
             if launch_flag==True and location_flag==False:
-                TASK="Launch Drone"
+                TASK="takeoff"
             elif launch_flag==True:
-                TASK="MOVE"   # if drone move to the same place it already is, launch or land
+                TASK="move"   # if drone move to the same place it already is, launch or land
             elif land_flag==True:
-                TASK="Land Drone"
+                TASK="land"
             elif move_flag==True:
-                TASK="MOVE"
+                TASK="move"
 
             if inspect_flag==True:
-                TASK="Inspect"
+                TASK="surveillance"
             elif video_flag==True:
-                TASK="View"
+                TASK="view"
 
             ####################################### machine name resolve
             if MachineName_flag==True:
                 self.Last_name=Machine_NAME
             else:
                 if ('camera' in allwords) and (location_flag==True):
-                    Machine_NAME="Static"
-                    Machine_Type="Static"
+                    Machine_NAME="static"
+                    Machine_Type="static"
                 else:
                     if self.Last_name!="":
                         Machine_NAME=self.Last_name
@@ -230,7 +230,7 @@ class MeaningFallback(FallbackSkill):
             ###################################################################### pick and place
 
             if TASK=="" and (MachineName_flag==True or (self.Last_name != "")) and (location_flag==True or (self.Last_location != "")): ###################################### default task move
-                TASK="MOVE"
+                TASK="move"
 
             ###### hand back/return
             back_word=['back', 'return']
@@ -262,15 +262,19 @@ class MeaningFallback(FallbackSkill):
                         #temp_LOCATION.append(allwords_words[location_index[i]])   word_stemmed[location_index[i]]
 
                         if 'factori' in word_stemmed[location_index[i]]:
-                            LOCATION.append("Factory")
+                            LOCATION.append("factory")
                             Location_index.append(location_index[i])
 
-                        elif word_stemmed[location_index[i]] in parking_lot_defined_locations and ("Parking Lot" not in LOCATION):
-                            LOCATION.append("Parking Lot")
+                        elif 'warehous' in word_stemmed[location_index[i]]:
+                            LOCATION.append("warehouse")
+                            Location_index.append(location_index[i])
+
+                        elif word_stemmed[location_index[i]] in parking_lot_defined_locations and ("ParkingLot" not in LOCATION):
+                            LOCATION.append("parkingLot")
                             Location_index.append(location_index[i])
 
                         elif word_stemmed[location_index[i]] in harbor_defined_locations:
-                            LOCATION.append("Harbor")
+                            LOCATION.append("harbor")
                             Location_index.append(location_index[i])
 
             else:
@@ -380,13 +384,13 @@ class MeaningFallback(FallbackSkill):
                             LOCATION[temp_min_index]='Source '+LOCATION[temp_min_index]
 
             if pick_flag==True or package_flag==True:  #pickntake_flag  put_flag
-                TASK="PnP"
+                TASK="pickAndPlace"
                 if len(LOCATION)==1:
                     if pickntake_flag ==True:
-                        TASK="Pick"
+                        TASK="pick"
                         #LOCATION[0]='Source '+LOCATION[0]
                     elif put_flag ==True:
-                        TASK="Put"
+                        TASK="place"
                         #LOCATION[0]='Destination '+LOCATION[0]
 
 
@@ -431,7 +435,7 @@ class MeaningFallback(FallbackSkill):
                             self.machine_type_dict[Machine_NAME]=Machine_Type
                             self.machine_location_dict[Machine_NAME]=temp_l
 
-            serialized=json.dumps({'Task':TASK, 'Nickname':Machine_NAME, 'Type':Machine_Type, 'Location':LOCATION}).encode('utf-8')
+            serialized=json.dumps({'task':TASK, 'nickname':Machine_NAME, 'type':Machine_Type, 'destination':LOCATION}).encode('utf-8')
             self.speak("TASK "+TASK+ " Machine Name "+Machine_NAME+"  "+str(LOCATION).strip('[]'))
 
             #serialized=json.dumps({'Task': 'move', 'Nickname':'shannon', 'Type':'3', 'Location':'area 3'}).encode('utf-8')
