@@ -40,12 +40,12 @@ class MeaningFallback(FallbackSkill):
     def __init__(self):
         super(MeaningFallback, self).__init__(name='Meaning Fallback')
         self.stemmer = PorterStemmer()
-        self.machine_type_dict["shannon"]="ground"
-        self.machine_location_dict["shannon"]="base"
-        self.machine_type_dict["alexander"]="aerial"
-        self.machine_location_dict["alexander"]="base"
-        self.machine_type_dict["richie"]="ground"
-        self.machine_location_dict["richie"]="base"
+        #self.machine_type_dict["shannon"]="ground"
+        #self.machine_location_dict["shannon"]="base"
+        #self.machine_type_dict["alexander"]="aerial"
+        #self.machine_location_dict["alexander"]="base"
+        #self.machine_type_dict["richie"]="ground"
+        #self.machine_location_dict["richie"]="base"
 
     def initialize(self):
         """
