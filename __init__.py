@@ -33,14 +33,6 @@ class MeaningFallback(FallbackSkill):
     machine_location_dict={}
     machine_type_dict={}
 
-    machine_type_dict["shannon"]="ground"
-    machine_location_dict["shannon"]="base"
-    machine_type_dict["alexander"]="aerial"
-    machine_location_dict["alexander"]="base"
-    machine_type_dict["richie"]="ground"
-    machine_location_dict["richie"]="base"
-
-
     Last_location=""
     Last_name=""
     stemmer = PorterStemmer()
