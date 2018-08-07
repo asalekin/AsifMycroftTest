@@ -215,7 +215,7 @@ class MeaningFallback(FallbackSkill):
             elif launch_flag==True:
                 TASK="move"   # if drone move to the same place it already is, launch or land
             elif land_flag==True:
-                TASK="land"
+                TASK="landAt"
             elif move_flag==True:
                 TASK="move"
 
