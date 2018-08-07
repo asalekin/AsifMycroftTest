@@ -246,6 +246,7 @@ class MeaningFallback(FallbackSkill):
             ################################################################################################## for the demo when some location names are defined
             parking_lot_defined_locations=['park', 'lot', 'parkinglot', 'garag']
             harbor_defined_locations=['anchorag', 'dock', 'harbor', 'pier', 'port', 'berth']
+            warehouse_defined_locations=['warehous', 'white', 'house']
 
             if location_flag==True:
                 for i in range(len(location_index)):
@@ -271,8 +272,8 @@ class MeaningFallback(FallbackSkill):
                         if 'factori' in word_stemmed[location_index[i]]:
                             LOCATION.append("factory")
                             Location_index.append(location_index[i])
-
-                        elif 'warehous' in word_stemmed[location_index[i]]:
+                            #warehouse_defined_locations
+                        elif word_stemmed[location_index[i]] in warehouse_defined_locations:        #            'warehous' in word_stemmed[location_index[i]]:
                             LOCATION.append("warehouse")
                             Location_index.append(location_index[i])
 
