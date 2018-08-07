@@ -193,7 +193,7 @@ class MeaningFallback(FallbackSkill):
                     Machine_NAME=allwords_words[amachine_index[0]-2]
                     MachineName_flag=True
 
-            if 'drone' in word_stemmed:
+            elif 'drone' in word_stemmed:
                 Machine_NAME='alexander'
                 MachineName_flag=True
 
