@@ -441,7 +441,7 @@ class MeaningFallback(FallbackSkill):
             #serialized=json.dumps({'Task': 'move', 'Nickname':'shannon', 'Type':'3', 'Location':'area 3'}).encode('utf-8')
             clientsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             #clientsocket.connect(('10.12.101.149', 7423))  #'localhost', 9099
-            clientsocket.connect(('localhost', 9001))
+            clientsocket.connect(('localhost', 9002))
             clientsocket.sendall(serialized)
             clientsocket.close()
 
