@@ -281,8 +281,8 @@ class MeaningFallback(FallbackSkill):
                             LOCATION.append("warehouse")
                             Location_index.append(location_index[i])
 
-                        elif word_stemmed[location_index[i]] in parking_lot_defined_locations and ("ParkingLot" not in LOCATION):
-                            LOCATION.append("parkingLot")
+                        elif word_stemmed[location_index[i]] in parking_lot_defined_locations and ("parkinglot" not in LOCATION):
+                            LOCATION.append("parkinglot")
                         elif word_stemmed[location_index[i]] in harbor_defined_locations:
                             LOCATION.append("harbor")
                             Location_index.append(location_index[i])
@@ -453,7 +453,7 @@ class MeaningFallback(FallbackSkill):
             #serialized=json.dumps({'Task': 'move', 'Nickname':'shannon', 'Type':'3', 'Location':'area 3'}).encode('utf-8')
             clientsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             #clientsocket.connect(('10.12.100.162', 7423))  #'localhost', 9099
-            clientsocket.connect(('localhost', 9005))
+            clientsocket.connect(('localhost', 9006))
             clientsocket.sendall(serialized)
             clientsocket.close()
 
