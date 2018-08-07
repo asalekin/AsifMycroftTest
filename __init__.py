@@ -305,9 +305,9 @@ class MeaningFallback(FallbackSkill):
 
                     if len(LOCATION)==1:
                         if put_flag==True:
-                            LOCATION[0]='Destination '+LOCATION[0]
+                            LOCATION[0]='destination '+LOCATION[0]
                         else:
-                            LOCATION[0]='Source '+LOCATION[0]
+                            LOCATION[0]='source '+LOCATION[0]
                     else:
                         temp_min=1000
                         temp_min_index=1000
@@ -322,17 +322,17 @@ class MeaningFallback(FallbackSkill):
 
                         if temp_min<1000:
                             if put_flag==True:
-                                LOCATION[temp_min_index]='Destination '+LOCATION[temp_min_index]
+                                LOCATION[temp_min_index]='destination '+LOCATION[temp_min_index]
                             else:
-                                LOCATION[temp_min_index]='Source '+LOCATION[temp_min_index]
+                                LOCATION[temp_min_index]='source '+LOCATION[temp_min_index]
 
                 if 'on' in word_stemmed:   #put_flag
 
                     if len(LOCATION)==1:
                         if put_flag==True:
-                            LOCATION[0]='Destination '+LOCATION[0]
+                            LOCATION[0]='destination '+LOCATION[0]
                         else:
-                            LOCATION[0]='Source '+LOCATION[0]
+                            LOCATION[0]='source '+LOCATION[0]
                     else:
                         temp_min=1000
                         temp_min_index=1000
@@ -347,13 +347,13 @@ class MeaningFallback(FallbackSkill):
 
                         if temp_min<1000:
                             if put_flag==True:
-                                LOCATION[temp_min_index]='Destination '+LOCATION[temp_min_index]
+                                LOCATION[temp_min_index]='destination '+LOCATION[temp_min_index]
                             else:
-                                LOCATION[temp_min_index]='Source '+LOCATION[temp_min_index]
+                                LOCATION[temp_min_index]='source '+LOCATION[temp_min_index]
 
                 if 'to' in word_stemmed:
                     if len(LOCATION)==1:
-                        LOCATION[0]='Destination '+LOCATION[0]
+                        LOCATION[0]='destination '+LOCATION[0]
 
                     else:
                         temp_min=1000
@@ -368,12 +368,12 @@ class MeaningFallback(FallbackSkill):
                                     temp_min_index=i
 
                         if temp_min<1000:
-                            LOCATION[temp_min_index]='Destination '+LOCATION[temp_min_index]
+                            LOCATION[temp_min_index]='destination '+LOCATION[temp_min_index]
 
                 if 'from' in word_stemmed:
 
                     if len(LOCATION)==1:
-                        LOCATION[0]='Source '+LOCATION[0]
+                        LOCATION[0]='source '+LOCATION[0]
 
                     else:
                         temp_min=1000
@@ -388,26 +388,26 @@ class MeaningFallback(FallbackSkill):
                                     temp_min_index=i
 
                         if temp_min<1000:
-                            LOCATION[temp_min_index]='Source '+LOCATION[temp_min_index]
+                            LOCATION[temp_min_index]='source '+LOCATION[temp_min_index]
 
             if pick_flag==True or package_flag==True:  #pickntake_flag  put_flag
                 TASK="pickAndPlace"
                 if len(LOCATION)==1:
                     if pickntake_flag ==True:
                         TASK="pick"
-                        #LOCATION[0]='Source '+LOCATION[0]
+                        #LOCATION[0]='source '+LOCATION[0]
                     elif put_flag ==True:
                         TASK="place"
-                        #LOCATION[0]='Destination '+LOCATION[0]
+                        #LOCATION[0]='destination '+LOCATION[0]
 
 
             ######################################## save machine location
             if len(LOCATION)==1:
                 #Last_location=LOCATION
-                if 'Destination' in LOCATION[0]:
-                    self.Last_location=LOCATION[0].split('Destination ')[1]
-                elif 'Source' in LOCATION[0]:
-                    self.Last_location=LOCATION[0].split('Source ')[1]
+                if 'destination' in LOCATION[0]:
+                    self.Last_location=LOCATION[0].split('destination ')[1]
+                elif 'source' in LOCATION[0]:
+                    self.Last_location=LOCATION[0].split('source ')[1]
                 else:
                     self.Last_location=LOCATION
 
@@ -426,8 +426,8 @@ class MeaningFallback(FallbackSkill):
 
             elif len(LOCATION)>1:
                 for i in range(len(LOCATION)):
-                    if 'Destination' in LOCATION[i]:
-                        self.Last_location=LOCATION[i].split('Destination ')[1]
+                    if 'destination' in LOCATION[i]:
+                        self.Last_location=LOCATION[i].split('destination ')[1]
 
                         ########################################################### saving individual machine location
                         if Machine_NAME in self.machine_location_dict:
