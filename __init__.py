@@ -450,6 +450,8 @@ class MeaningFallback(FallbackSkill):
 
             if Machine_Type=='aerial':
                 Machine_NAME='alexander'
+            elif Machine_Type=='ground' and Machine_NAME=='alexander':
+                Machine_NAME=''
 
  
             serialized=json.dumps({'task':TASK, 'nickname':Machine_NAME, 'type':Machine_Type, 'destination':LOCATION}).encode('utf-8')
