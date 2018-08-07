@@ -170,7 +170,7 @@ class MeaningFallback(FallbackSkill):
 
             ################################ get robotname info
             MachineName_flag=False
-            amachine=['drone', 'robot', 'machine']
+            amachine=['robot', 'machine']
             if any(s in amachine for s in word_stemmed):
                 amachine_index=[i for i, e in enumerate([s in amachine for s in word_stemmed]) if e == True]
                 #print(amachine_index[0])
@@ -192,6 +192,10 @@ class MeaningFallback(FallbackSkill):
                 elif ((amachine_index[0]-2)>=0) and ('VB' in posTagged[amachine_index[0]-1][1]) and ('NN' in posTagged[amachine_index[0]-2][1]):
                     Machine_NAME=allwords_words[amachine_index[0]-2]
                     MachineName_flag=True
+
+            if 'drone' in word_stemmed:
+                Machine_NAME='alexander'
+                MachineName_flag=True
 
 
             # machine_location_dict[Machine_NAME]
