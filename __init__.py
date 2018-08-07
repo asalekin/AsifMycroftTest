@@ -21,7 +21,7 @@ class MeaningFallback(FallbackSkill):
     inspect_list=['surveil', 'monitor', 'inspect', 'accid', 'leak', 'gas', 'fire', 'examin', 'check', 'investig', 'scan', 'survey', 'inquir', 'scout']
     move_list=['go', 'move', 'take', 'park', 'depart', 'send', 'fli', 'spin', 'turn', 'rotat','bring', 'back', 'come']  # bring
     video_list=['view', 'video', 'look', 'see', 'observ', 'watch', 'show', 'display', 'bird', 'outlook', 'pictur', 'broadcast', 'record', 'eye', 'peek']
-    location_list=['area', 'arena', 'block', 'build', 'circuit', 'corner', 'spot', 'divis', 'dominion', 'field', 'ground', 'hous', 'plot', 'place', 'provinc', 'point', 'region', 'section', 'station', 'space', 'sector', 'slot', 'territori', 'track', 'tract', 'turf', 'ward', 'zone', 'factori', 'locat', 'factori', 'laboratori', 'mill', 'warehous', 'lot', 'park', 'parkinglot', 'garag', 'anchorag', 'dock', 'harbor', 'pier', 'dock', 'port', 'berth']
+    location_list=['area', 'arena', 'block', 'build', 'circuit', 'corner', 'spot', 'divis', 'dominion', 'field', 'ground', 'hous', 'plot', 'place', 'provinc', 'point', 'region', 'section', 'station', 'space', 'sector', 'slot', 'territori', 'track', 'tract', 'turf', 'ward', 'zone', 'factori', 'locat', 'factori', 'laboratori', 'mill', 'warehous', 'lot', 'parkinglot', 'garag', 'anchorag', 'dock', 'harbor', 'pier', 'dock', 'port', 'berth']
 
     pick_list=['deliv', 'pick', 'carri', 'transport', 'ferri', 'import', 'transfer', 'lift', 'fetch', 'ship', 'drop', 'put', 'set', 'situat']
     pickntake_list=['pick', 'take', 'import', 'lift', 'fetch']
