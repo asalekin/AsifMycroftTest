@@ -33,6 +33,13 @@ class MeaningFallback(FallbackSkill):
     machine_location_dict={}
     machine_type_dict={}
 
+    machine_location_dict['shannon']='base'
+    machine_location_dict['alexander']='base'  
+    machine_location_dict['richie']='base' 
+    machine_type_dict['shannon']='aerial'
+    machine_type_dict['alexander']='ground' 
+    machine_type_dict['richie']='ground' 
+
     Last_location=""
     Last_name=""
     stemmer = PorterStemmer()
@@ -440,8 +447,8 @@ class MeaningFallback(FallbackSkill):
 
             #serialized=json.dumps({'Task': 'move', 'Nickname':'shannon', 'Type':'3', 'Location':'area 3'}).encode('utf-8')
             clientsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            clientsocket.connect(('10.12.101.149', 7423))  #'localhost', 9099
-            #clientsocket.connect(('localhost', 9099))
+            #clientsocket.connect(('10.12.101.149', 7423))  #'localhost', 9099
+            clientsocket.connect(('localhost', 9001))
             clientsocket.sendall(serialized)
             clientsocket.close()
 
