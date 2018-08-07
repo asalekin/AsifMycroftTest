@@ -41,13 +41,6 @@ class MeaningFallback(FallbackSkill):
         super(MeaningFallback, self).__init__(name='Meaning Fallback')
         self.stemmer = PorterStemmer()
 
-        self.machine_type_dict["shannon"]="ground"
-        self.machine_location_dict["shannon"]="base"
-        self.machine_type_dict["alexander"]="aerial"
-        self.machine_location_dict["alexander"]="base"
-        self.machine_type_dict["richie"]="ground"
-        self.machine_location_dict["richie"]="base"
-
     def initialize(self):
         """
             Registers the fallback skill
@@ -447,8 +440,8 @@ class MeaningFallback(FallbackSkill):
 
             #serialized=json.dumps({'Task': 'move', 'Nickname':'shannon', 'Type':'3', 'Location':'area 3'}).encode('utf-8')
             clientsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            #clientsocket.connect(('10.12.101.149', 7423))  #'localhost', 9099
-            clientsocket.connect(('localhost', 9003))
+            clientsocket.connect(('10.12.101.149', 7423))  #'localhost', 9099
+            #clientsocket.connect(('localhost', 9003))
             clientsocket.sendall(serialized)
             clientsocket.close()
 
