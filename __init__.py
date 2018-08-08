@@ -407,7 +407,8 @@ class MeaningFallback(FallbackSkill):
                     else:
                         temp_min=1000
                         temp_min_index=1000
-                        temp_index=word_stemmed.index('from')
+                        #temp_index=word_stemmed.index('from')
+                        temp_index=len(word_stemmed)-word_stemmed[::-1].index('from')-1
 
                         for i in range(len(LOCATION)):
                             temp_l_index=Location_index[i]
