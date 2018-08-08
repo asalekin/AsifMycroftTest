@@ -64,13 +64,14 @@ class MeaningFallback(FallbackSkill):
         allwords=allwords.lower()
         allwords_words=allwords.split(" ")
 
-        #richie_sst_fix=['ritchi', 'richie', 'vici', 'ricci']
-        #allwords_words[[a in richie_sst_fix for a in self.allwords_words].index(True)]='richie'
+        richie_sst_fix=['ritchi', 'richie', 'vici', 'ricci']
+        allwords_words[[a in richie_sst_fix for a in allwords_words].index(True)]='richie'
 
 
         allwords_token=nltk.word_tokenize(allwords)
+        allwords_token[[a in richie_sst_fix for a in allwords_token].index(True)]='richie'
         word_stemmed = [self.stemmer.stem(plural) for plural in allwords_token]
-        #word_stemmed[[a in richie_sst_fix for a in word_stemmed].index(True)]='richie'
+
 
         
 
@@ -472,8 +473,8 @@ class MeaningFallback(FallbackSkill):
 
             #serialized=json.dumps({'Task': 'move', 'Nickname':'shannon', 'Type':'3', 'Location':'area 3'}).encode('utf-8')
             clientsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            clientsocket.connect(('10.12.100.22', 7423))  #'localhost', 9099
-            #clientsocket.connect(('localhost', 9008))
+            #clientsocket.connect(('10.12.100.22', 7423))  #'localhost', 9099
+            clientsocket.connect(('localhost', 9009))
             clientsocket.sendall(serialized)
             clientsocket.close()
 
