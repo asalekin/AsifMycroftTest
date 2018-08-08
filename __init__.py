@@ -65,11 +65,15 @@ class MeaningFallback(FallbackSkill):
         allwords_words=allwords.split(" ")
 
         richie_sst_fix=['ritchi', 'richie', 'vici', 'ricci']
-        allwords_words[[a in richie_sst_fix for a in allwords_words].index(True)]='richie'
+        ##################################################################################################################### for the demmo
+        if any([a in richie_sst_fix for a in allwords_words]):
+            allwords_words[[a in richie_sst_fix for a in allwords_words].index(True)]='richie'
 
 
         allwords_token=nltk.word_tokenize(allwords)
-        allwords_token[[a in richie_sst_fix for a in allwords_token].index(True)]='richie'
+
+        if any([a in richie_sst_fix for a in allwords_token]):
+            allwords_token[[a in richie_sst_fix for a in allwords_token].index(True)]='richie'
         word_stemmed = [self.stemmer.stem(plural) for plural in allwords_token]
 
 
