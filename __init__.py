@@ -64,8 +64,8 @@ class MeaningFallback(FallbackSkill):
         allwords=allwords.lower()
         allwords_words=allwords.split(" ")
 
-        richie_sst_fix=[ritchi,richie, vici, ricci]
-        allwords_words[[a in richie_sst_fix for a in allwords_words].index(True)]='richie'
+        richie_sst_fix=['ritchi', 'richie', 'vici', 'ricci']
+        allwords_words[[a in richie_sst_fix for a in self.allwords_words].index(True)]='richie'
 
 
         allwords_token=nltk.word_tokenize(allwords)
