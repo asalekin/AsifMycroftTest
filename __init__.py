@@ -14,7 +14,7 @@ class MeaningFallback(FallbackSkill):
     #host = '10.12.101.149'
     #port = 7423
 
-
+    backhome=['return','home']
     fly_list=['aerial', 'aeriform', 'drone', 'astral', 'aero', 'aeri', 'bird', 'ether']
     launch_list=['fli', 'air', 'up', 'high', 'loft', 'sky', 'elev', 'altitud', 'atmosph', 'takeoff', 'off', 'launch']
     land_list=['down', 'put', 'drop', 'land', 'dock', 'settl']
@@ -28,7 +28,7 @@ class MeaningFallback(FallbackSkill):
     put_list=['drop', 'put', 'set', 'place', 'situat']
     package_list=['good', 'materi', 'shipment', 'object','packag', 'payload', 'box', 'cargo', 'load', 'product', 'packet', 'item', 'body']
 
-    match_words=fly_list+launch_list+land_list+inspect_list+move_list+video_list+location_list+pick_list+pickntake_list+put_list+package_list
+    match_words=fly_list+launch_list+land_list+inspect_list+move_list+video_list+location_list+pick_list+pickntake_list+put_list+package_list+backhome
 
     machine_location_dict={}
     machine_type_dict={}
@@ -416,6 +416,9 @@ class MeaningFallback(FallbackSkill):
                         TASK="place"
                         #LOCATION[0]='destination '+LOCATION[0]
 
+            ##################################################################################### for the demo return home command
+            if TASK=='move' and any(a in backhome for a in word_stemmed):
+                LOCATION=["parkinglot"]
 
             ######################################## save machine location
             if len(LOCATION)==1:
@@ -461,6 +464,10 @@ class MeaningFallback(FallbackSkill):
  
             serialized=json.dumps({'task':TASK, 'nickname':Machine_NAME, 'type':Machine_Type, 'destination':LOCATION}).encode('utf-8')
             self.speak("TASK "+TASK+ " Machine Name "+Machine_NAME+"  "+str(LOCATION).strip('[]'))
+
+
+                
+
 
             #serialized=json.dumps({'Task': 'move', 'Nickname':'shannon', 'Type':'3', 'Location':'area 3'}).encode('utf-8')
             clientsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
