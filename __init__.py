@@ -277,6 +277,9 @@ class MeaningFallback(FallbackSkill):
                             LOCATION.append("factory")
                             Location_index.append(location_index[i])
                             #warehouse_defined_locations
+                        elif 'citi' in word_stemmed[location_index[i]]:
+                            LOCATION.append("static")
+                            Location_index.append(location_index[i])
                         elif word_stemmed[location_index[i]] in warehouse_defined_locations:        #            'warehous' in word_stemmed[location_index[i]]:
                             LOCATION.append("warehouse")
                             Location_index.append(location_index[i])
