@@ -398,7 +398,7 @@ class MeaningFallback(FallbackSkill):
 
             if pick_flag==True or package_flag==True:  #pickntake_flag  put_flag
                 TASK="pickAndPlace"
-                self.speak(str(len(LOCATION)))
+                #self.speak(str(len(LOCATION)))
                 if len(LOCATION)==1:
                     if pickntake_flag ==True:
                         TASK="pick"
