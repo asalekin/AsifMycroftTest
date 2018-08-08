@@ -185,13 +185,13 @@ class MeaningFallback(FallbackSkill):
                     Machine_NAME=allwords_words[amachine_index[0]+2]
                     MachineName_flag=True
 
-                elif ((amachine_index[0]-1)>=0) and ('NN' in posTagged[amachine_index[0]-1][1]):
-                    Machine_NAME=allwords_words[amachine_index[0]-1]
-                    MachineName_flag=True
+                #elif ((amachine_index[0]-1)>=0) and ('NN' in posTagged[amachine_index[0]-1][1]):
+                #    Machine_NAME=allwords_words[amachine_index[0]-1]
+                #    MachineName_flag=True
 
-                elif ((amachine_index[0]-2)>=0) and ('VB' in posTagged[amachine_index[0]-1][1]) and ('NN' in posTagged[amachine_index[0]-2][1]):
-                    Machine_NAME=allwords_words[amachine_index[0]-2]
-                    MachineName_flag=True
+                #elif ((amachine_index[0]-2)>=0) and ('VB' in posTagged[amachine_index[0]-1][1]) and ('NN' in posTagged[amachine_index[0]-2][1]):
+                #    Machine_NAME=allwords_words[amachine_index[0]-2]
+                #    MachineName_flag=True
 
             elif 'drone' in word_stemmed:
                 Machine_NAME='alexander'
