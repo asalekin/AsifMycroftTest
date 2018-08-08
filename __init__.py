@@ -416,7 +416,8 @@ class MeaningFallback(FallbackSkill):
                         TASK="place"
                         #LOCATION[0]='destination '+LOCATION[0]
 
-
+            elif TASK=='move' and 'home' in word_stemmed:
+                LOCATION=['base']
             ######################################## save machine location
             if len(LOCATION)==1:
                 #Last_location=LOCATION
