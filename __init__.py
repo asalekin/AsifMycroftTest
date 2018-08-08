@@ -71,6 +71,8 @@ class MeaningFallback(FallbackSkill):
 
         if any(s in self.match_words for s in word_stemmed):
 
+            self.speak(message.data.get("utterance"))
+
             TASK=""
             LOCATION=[]
             Machine_Type="ground"
