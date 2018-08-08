@@ -19,7 +19,7 @@ class MeaningFallback(FallbackSkill):
     launch_list=['fli', 'air', 'up', 'high', 'loft', 'sky', 'elev', 'altitud', 'atmosph', 'takeoff', 'off', 'launch']
     land_list=['down', 'put', 'drop', 'land', 'dock', 'settl']
     inspect_list=['surveil', 'monitor', 'inspect', 'accid', 'leak', 'gas', 'fire', 'examin', 'check', 'investig', 'scan', 'survey', 'inquir', 'scout']
-    move_list=['go', 'move', 'take', 'park', 'depart', 'send', 'fli', 'spin', 'turn', 'rotat','bring', 'back', 'come']  # bring
+    move_list=['go', 'move', 'take', 'depart', 'send', 'fli', 'spin', 'turn', 'rotat','bring', 'back', 'come']  # bring
     video_list=['view', 'video', 'look', 'see', 'observ', 'watch', 'show', 'display', 'bird', 'outlook', 'pictur', 'broadcast', 'record', 'eye', 'peek']
     location_list=['area', 'arena', 'block', 'build', 'circuit', 'corner', 'spot', 'divis', 'dominion', 'field', 'ground', 'hous', 'plot', 'place', 'provinc', 'point', 'region', 'section', 'station', 'space', 'sector', 'slot', 'territori', 'track', 'tract', 'turf', 'ward', 'zone', 'factori', 'locat', 'factori', 'laboratori', 'mill', 'warehous', 'lot', 'parkinglot', 'garag', 'anchorag', 'dock', 'harbor', 'pier', 'dock', 'port', 'berth', 'citi']
 
@@ -269,7 +269,7 @@ class MeaningFallback(FallbackSkill):
             temp_LOCATION=[]
 
             ################################################################################################## for the demo when some location names are defined
-            parking_lot_defined_locations=['parking', 'lot', 'parkinglot', 'garag']
+            parking_lot_defined_locations=['park', 'lot', 'parkinglot', 'garag']
             harbor_defined_locations=['anchorag', 'dock', 'harbor', 'pier', 'port', 'berth']
             warehouse_defined_locations=['warehous', 'white', 'house']
 
@@ -303,12 +303,14 @@ class MeaningFallback(FallbackSkill):
                             LOCATION.append("warehouse")
                             Location_index.append(location_index[i])
 
-                        elif allwords_token[location_index[i]] in parking_lot_defined_locations and ("parkinglot" not in LOCATION):
-                            LOCATION.append("parkinglot")
+                        elif word_stemmed[location_index[i]] in parking_lot_defined_locations and ("parkinglot" not in LOCATION):
+                            LOCATION.append("Parking Lot")
+                            Location_index.append(location_index[i])
+
                         elif word_stemmed[location_index[i]] in harbor_defined_locations:
                             LOCATION.append("harbor")
                             Location_index.append(location_index[i])
-                            Location_index.append(location_index[i])
+    
 
 
             else:
