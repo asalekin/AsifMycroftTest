@@ -223,6 +223,11 @@ class MeaningFallback(FallbackSkill):
                 TASK="surveillance"
             elif video_flag==True:
                 TASK="view"
+            ##################################################################################### for the demo
+            if Machine_Type=='aerial':
+                Machine_NAME='alexander'
+            elif Machine_Type=='ground' and Machine_NAME=='alexander':
+                Machine_NAME=''
 
             ####################################### machine name resolve
             if MachineName_flag==True:
@@ -237,6 +242,10 @@ class MeaningFallback(FallbackSkill):
                         #Machine_Type=self.machine_type_dict[Machine_NAME]
 
                 MachineName_flag=True
+            ##################################################################################### for the demo
+            if TASK=='view' and 'citi' in word_stemmed:
+                Machine_NAME="static"
+                Machine_Type="static"
 
             ###################################################################### pick and place
 
@@ -448,16 +457,6 @@ class MeaningFallback(FallbackSkill):
                             temp_l.append(self.Last_location)
                             self.machine_type_dict[Machine_NAME]=Machine_Type
                             self.machine_location_dict[Machine_NAME]=temp_l
-
-
-            if Machine_Type=='aerial':
-                Machine_NAME='alexander'
-            elif Machine_Type=='ground' and Machine_NAME=='alexander':
-                Machine_NAME=''
-
-            if TASK=='view' and 'citi' in word_stemmed:
-                Machine_NAME="static"
-                Machine_Type="static"
 
  
             serialized=json.dumps({'task':TASK, 'nickname':Machine_NAME, 'type':Machine_Type, 'destination':LOCATION}).encode('utf-8')
