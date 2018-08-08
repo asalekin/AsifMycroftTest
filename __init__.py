@@ -257,7 +257,7 @@ class MeaningFallback(FallbackSkill):
             temp_LOCATION=[]
 
             ################################################################################################## for the demo when some location names are defined
-            parking_lot_defined_locations=['parking', 'lot', 'parkinglot', 'garag']
+            parking_lot_defined_locations=['park', 'lot', 'parkinglot', 'garag']
             harbor_defined_locations=['anchorag', 'dock', 'harbor', 'pier', 'port', 'berth']
             warehouse_defined_locations=['warehous', 'white', 'house']
 
@@ -291,7 +291,7 @@ class MeaningFallback(FallbackSkill):
                             LOCATION.append("warehouse")
                             Location_index.append(location_index[i])
 
-                        elif allwords_token[location_index[i]] in parking_lot_defined_locations and ("parkinglot" not in LOCATION):
+                        elif word_stemmed[location_index[i]] in parking_lot_defined_locations and ("parkinglot" not in LOCATION):
                             LOCATION.append("parkinglot")
                         elif word_stemmed[location_index[i]] in harbor_defined_locations:
                             LOCATION.append("harbor")
